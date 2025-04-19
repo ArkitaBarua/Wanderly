@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wanderly - Travel Adventure</title>
+
+    <link rel="stylesheet" href="styles.css">
+    <!-- Slick Carousel CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" />
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            overflow-x: hidden;
+            background-color: #f8f9fa;
+        }
+        
+        .navbar {
+            display: flex;
+            align-items: center;
+            background-color: #5e9ced;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo {
+            height: 40px;
+            margin-right: 10px;
+            font-size: 22px;
+            font-weight: bold;
+            color: white;
+        }
+        
+        .logo-text {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin: 0 10px;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            font-size: 16px;
+        }
+        
+        .nav-links a:hover {
+            color: #ffdd57;
+            transform: translateY(-2px);
+        }
+        
+        .hero {
+            height: 100vh;
+            width: 100%;
+            background-image: url('bg.gif');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            overflow: hidden;
+            padding-top: 73px;
+            /* Add padding equal to navbar height to prevent content overlap */
+        }
+        
+        .bird {
+            position: absolute;
+            width: 430px;
+            top: 40%;
+            transform: translateY(-40%);
+            animation: flyBird 3s forwards;
+        }
+        /* Trending Places Section */
+        
+        .trending-places {
+            padding: 80px 0;
+            text-align: center;
+            background-color: #f5f5f5;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .trending-places::before {
+            content: '';
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(145deg, #5e9ced33, #4a7fc733);
+            border-radius: 50%;
+            top: -100px;
+            left: -100px;
+            z-index: 0;
+        }
+        
+        .trending-places::after {
+            content: '';
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(145deg, #5e9ced33, #4a7fc733);
+            border-radius: 50%;
+            bottom: -100px;
+            right: -100px;
+            z-index: 0;
+        }
+        
+        .trending-places h2 {
+            font-size: 3rem;
+            margin-bottom: 50px;
+            font-family: 'Arial', sans-serif;
+            font-weight: 800;
+            color: transparent;
+            background: linear-gradient(145deg, #5e9ced, #4a7fc7);
+            -webkit-background-clip: text;
+            background-clip: text;
+            position: relative;
+            display: inline-block;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .trending-places h2::after {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(145deg, #5e9ced, #4a7fc7);
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+        
+        .trending-places h2::before {
+            content: 'DISCOVER';
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.9rem;
+            color: #5e9ced;
+            letter-spacing: 5px;
+            font-weight: 600;
+        }
+        
+        .carousel {
+            position: relative;
+            padding: 40px;
+            margin: 40px auto;
+            max-width: 1400px;
+        }
+        
+        .place-card {
+            background: linear-gradient(145deg, #ffffff, #f5f5f5);
+            border-radius: 25px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            margin: 20px;
+            text-align: center;
+            transition: all 0.5s ease;
+            cursor: pointer;
+            max-width: 400px;
+            position: relative;
+            z-index: 1;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .place-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            background: linear-gradient(145deg, #5e9ced, #4a7fc7);
+        }
+        
+        .place-card:hover h3,
+        .place-card:hover p {
+            color: white;
+        }
+        
+        .place-card img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            margin: 0 auto 30px;
+            object-fit: cover;
+            border: 8px solid #f8f9fa;
+            transition: all 0.5s ease;
+        }
+        
+        .place-card:hover img {
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+        }
+        
+        .place-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #333;
+            transition: color 0.5s ease;
+        }
+        
+        .place-card p {
+            font-size: 1rem;
+            color: #666;
+            line-height: 1.8;
+            transition: color 0.5s ease;
+        }
+        
+        .card-link {
+            text-decoration: none;
+            display: block;
+        }
+        
+        @keyframes flyBird {
+            0% {
+                right: -150px;
+                transform: translateY(-50%) rotate(0deg);
+            }
+            70% {
+                right: 55%;
+                transform: translateY(-40%) rotate(-5deg);
+            }
+            100% {
+                right: 65%;
+                transform: translateY(-30%) rotate(0deg);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                gap: 1rem;
+            }
+            .logo-text {
+                font-size: 1.2rem;
+            }
+            .bird {
+                width: 80px;
+            }
+        }
+        /* Map section styling */
+        
+        .map-container {
+            position: relative;
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .disc-image {
+            position: absolute;
+            top: 0;
+            left: 50px;
+            width: 500px;
+            z-index: 5;
+        }
+        /* Welcome Section - From styles.css */
+        
+        .welcome {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+            background: url('travel-bg.jpg') center/cover no-repeat;
+            color: blue;
+        }
+        
+        .welcome h1 {
+            font-size: 50px;
+        }
+        
+        .welcome p {
+            font-size: 20px;
+        }
+        /* Scroll container styles - From styles.css */
+        
+        .scroll-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .places-wrapper {
+            display: flex;
+            overflow-x: scroll;
+            scroll-behavior: smooth;
+            width: 80%;
+            padding: 10px 0;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        
+        .places-wrapper::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .scroll-btn {
+            background: #2f83e2;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 20px;
+            position: absolute;
+        }
+        
+        .left-btn {
+            left: 10px;
+        }
+        
+        .right-btn {
+            right: 10px;
+        }
+        /* Slick carousel custom styling */
+        
+        .slick-slide {
+            transform: scale(0.8);
+            transition: all 0.5s ease;
+            opacity: 0.5;
+        }
+        
+        .slick-current {
+            transform: scale(1.1);
+            z-index: 2;
+            opacity: 1;
+        }
+        
+        .slick-slide.slick-active {
+            opacity: 1;
+        }
+        
+        .slick-prev,
+        .slick-next {
+            width: 50px;
+            height: 50px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            z-index: 3;
+            transition: all 0.3s ease;
+        }
+        
+        .slick-prev:hover,
+        .slick-next:hover {
+            background: #5e9ced;
+        }
+        
+        .slick-prev {
+            left: -25px;
+        }
+        
+        .slick-next {
+            right: -25px;
+        }
+        
+        .slick-prev:before,
+        .slick-next:before {
+            color: #5e9ced;
+            font-size: 24px;
+            transition: color 0.3s ease;
+        }
+        
+        .slick-prev:hover:before,
+        .slick-next:hover:before {
+            color: white;
+        }
+        
+        .slick-dots {
+            bottom: -50px;
+        }
+        
+        .slick-dots li button:before {
+            font-size: 12px;
+            color: #5e9ced;
+            opacity: 0.5;
+        }
+        
+        .slick-dots li.slick-active button:before {
+            color: #5e9ced;
+            opacity: 1;
+        }
+    </style>
+    <!-- jQuery Library -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Slick Carousel JS -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <!-- Logo on the Left -->
+        <div style="display: flex; align-items: center; flex-shrink: 0;">
+            <div><img src="logo.png" style="height: 40px; width: 40px; border-radius: 50%; margin-right: 10px;"></div>
+            <span><img style="width:100px; height:auto;" src="wanderly.png"></span>
+        </div>
+
+        <!-- Navigation Links -->
+        <div style="display: flex; gap: 2rem; flex-grow: 1; justify-content: center;">
+            <a href="main2.html" style="color: white; text-decoration: none; font-weight: 500; transition: all 0.3s ease;">HOME</a>
+            <a href="Chennai.html" style="color: white; text-decoration: none; font-weight: 500; transition: all 0.3s ease;">TRAVEL</a>
+            <a href="flights.html" style="color: white; text-decoration: none; font-weight: 500; transition: all 0.3s ease;">FLIGHTS</a>
+            <a href="#" style="color: white; text-decoration: none; font-weight: 500; transition: all 0.3s ease;">CONTACT</a>
+        </div>
+
+        <!-- Login/Signup Button or User Profile -->
+        <div style="flex-shrink: 0;">
+            <div id="authButton">
+                <a href="signup.html"><button style="background-color: white; color: #1a73e8; border: none; padding: 10px 15px; border-radius: 4px; font-size: 14px; cursor: pointer; transition: background-color 0.3s ease; font-weight: bold;">
+                    Login / Signup
+                </button></a>
+            </div>
+            <div id="userProfile" style="display: none;">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <img id="userPhoto" src="default-avatar.png" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+                    <span id="userName" style="color: white; font-weight: 500;"></span>
+                    <button onclick="handleLogout()" style="background-color: white; color: #1a73e8; border: none; padding: 8px 12px; border-radius: 4px; font-size: 12px; cursor: pointer; margin-left: 10px;">
+                        Logout
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!--Flying Bird -->
+    <div class="hero">
+        <img src="bird1.png" alt="Flying Bird" class="bird">
+    </div>
+
+    <!-- Trending Places Section -->
+    <section class="trending-places">
+        <h2>Trending Places</h2>
+        <div class="carousel">
+            <a href="destination.html?city=paris" class="card-link">
+                <div class="place-card" style="min-width: 300px;">
+                    <h3>Paris, France</h3>
+                    <img src="paris.jpg" alt="Paris">
+                    <p>The city of love and lights, Paris is known for its art, culture, and the iconic Eiffel Tower.</p>
+                </div>
+            </a>
+            <a href="destination.html?city=kyoto" class="card-link">
+                <div class="place-card" style="min-width: 250px;">
+                    <h3>Kyoto, Japan</h3>
+                    <img src="kyoto.jpg" alt="Kyoto">
+                    <p>A beautiful blend of tradition and modernity, Kyoto is famous for its temples and cherry blossoms.</p>
+                </div>
+            </a>
+            <a href="destination.html?city=newyork" class="card-link">
+                <div class="place-card" style="min-width: 350px;">
+                    <h3>New York, USA</h3>
+                    <img src="newyork.jpg" alt="New York">
+                    <p>Experience the hustle and bustle of Times Square and the serenity of Central Park in NYC.</p>
+                </div>
+            </a>
+            <a href="destination.html?city=bali" class="card-link">
+                <div class="place-card" style="min-width: 280px;">
+                    <h3>Bali, Indonesia</h3>
+                    <img src="bali.jpg" alt="Bali">
+                    <p>A paradise of beaches, temples, and lush greenery, perfect for relaxation and adventure.</p>
+                </div>
+            </a>
+            <a href="destination.html?city=capetown" class="card-link">
+                <div class="place-card" style="min-width: 320px;">
+                    <h3>Cape Town, South Africa</h3>
+                    <img src="capetown.jpg" alt="Cape Town">
+                    <p>Known for its stunning landscapes, rich culture, and the iconic Table Mountain.</p>
+                </div>
+            </a>
+            <a href="destination.html?city=barcelona" class="card-link">
+                <div class="place-card" style="min-width: 270px;">
+                    <h3>Barcelona, Spain</h3>
+                    <img src="barcelona.jpg" alt="Barcelona">
+                    <p>A vibrant city famed for its art, architecture, and lively beaches.</p>
+                </div>
+            </a>
+        </div>
+    </section>
+
+
+
+    <!-- Map Section -->
+    <section class="map-container">
+        <!-- Disc image positioned at right top of the map -->
+        <img src="disc.png" class="disc-image" alt="Disc">
+
+        <img src="india.png" alt="India map" usemap="#indiamap">
+        <map name="indiamap">
+            <area shape="poly" coords="190,798,198,822,217,853,229,888,230,910,245,936,257,947,262,940,261,926,266,906,260,901,263,883,259,878,253,881,248,876,248,869,250,862,243,859,247,855,239,849,238,843,230,839,237,834,234,827,219,824,206,815,201,804"
+                alt="Kerala" title="Kerala" href="kerala.html">
+            <area shape="poly" coords="258,948,270,955,286,947,291,929,297,922,321,917,316,909,326,893,327,883,345,880,347,847,343,838,363,792,364,776,355,773,347,781,334,780,325,789,309,790,299,802,282,795,274,803,268,814,278,817,275,824,266,827,252,830,248,836,239,831,231,837,237,841,238,847,248,853,245,858,251,860,249,875,253,879,259,876,264,881,261,899,268,904,262,924,263,937"
+                alt="Tamil Nadu" title="Tamil Nadu" href="TN.html">
+            <area shape="poly" coords="190,798,217,824,236,834,249,835,279,822,271,816,280,798,295,799,305,785,285,763,259,768,253,756,268,755,248,738,251,725,261,726,263,718,256,711,263,694,272,694,274,683,272,657,279,643,272,639,275,618,268,614,241,643,224,649,217,648,211,658,196,659,174,672,179,685,171,700,166,730,183,761,181,783"
+                alt="Karnataka" title="Karnataka" href="karn.html">
+            <area shape="poly" coords="273,693,264,691,257,708,262,716,248,736,260,748,268,756,253,755,268,764,290,761,305,783,297,800,305,802,311,789,355,773,354,717,368,696,382,697,393,680,426,672,425,659,500,588,458,593,451,612,428,610,419,625,380,636,393,650,369,663,317,690" 
+                alt="Andhra Pradesh" title="Andhra Pradesh" href="AP.html">
+        </map>
+    </section>
+
+    <script>
+        function scrollLeft() {
+            document.getElementById('placesWrapper').scrollBy({
+                left: -250,
+                behavior: 'smooth'
+            });
+        }
+
+        function scrollRight() {
+            document.getElementById('placesWrapper').scrollBy({
+                left: 250,
+                behavior: 'smooth'
+            });
+        }
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.carousel').slick({
+                infinite: true,
+                slidesToShow: 3,
+                slidesToScroll: 1,
+                autoplay: true,
+                autoplaySpeed: 3000,
+                centerMode: true,
+                centerPadding: '0',
+                dots: true,
+                speed: 500,
+                cssEase: 'cubic-bezier(0.645, 0.045, 0.355, 1.000)',
+                responsive: [{
+                    breakpoint: 1200,
+                    settings: {
+                        slidesToShow: 2,
+                        slidesToScroll: 1,
+                        centerMode: true
+                    }
+                }, {
+                    breakpoint: 768,
+                    settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1,
+                        centerMode: true,
+                        centerPadding: '0'
+                    }
+                }]
+            });
+        });
+    </script>
+
+    <script>
+        // Add Firebase SDK
+        const firebaseScripts = document.createElement('script');
+        firebaseScripts.src = 'https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js';
+        document.head.appendChild(firebaseScripts);
+
+        const authScript = document.createElement('script');
+        authScript.src = 'https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js';
+        document.head.appendChild(authScript);
+
+        const configScript = document.createElement('script');
+        configScript.src = 'firebase-config.js';
+        document.head.appendChild(configScript);
+
+        // Check authentication state
+        function checkAuthState() {
+            const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+            const authButton = document.getElementById('authButton');
+            const userProfile = document.getElementById('userProfile');
+            const userName = document.getElementById('userName');
+            const userPhoto = document.getElementById('userPhoto');
+
+            if (isLoggedIn) {
+                authButton.style.display = 'none';
+                userProfile.style.display = 'block';
+                userName.textContent = localStorage.getItem('userName') || 'User';
+                userPhoto.src = localStorage.getItem('userPhoto') || 'default-avatar.png';
+            } else {
+                authButton.style.display = 'block';
+                userProfile.style.display = 'none';
+            }
+        }
+
+        function handleLogout() {
+            auth.signOut()
+                .then(() => {
+                    // Clear localStorage
+                    localStorage.removeItem('isLoggedIn');
+                    localStorage.removeItem('userEmail');
+                    localStorage.removeItem('userName');
+                    localStorage.removeItem('userPhoto');
+                    localStorage.removeItem('userId');
+
+                    // Refresh the page
+                    window.location.reload();
+                })
+                .catch((error) => {
+                    console.error('Logout error:', error);
+                    alert(error.message);
+                });
+        }
+
+        // Check auth state on page load
+        window.onload = function() {
+            checkAuthState();
+            // ... existing onload code ...
+        }
+    </script>
+
+</body>
+
+</html>

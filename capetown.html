@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cape Town - Mother City of South Africa | Wanderly</title>
+    <style>
+        /* ... Same base styles as previous pages ... */
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+        }
+        
+        .navbar {
+            display: flex;
+            align-items: center;
+            background-color: #5e9ced;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            justify-content: space-between;
+        }
+        
+        .hero {
+            height: 60vh;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('capetown-hero.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            padding-top: 70px;
+        }
+        /* ... Rest of the styles from previous pages ... */
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero p {
+            font-size: 1.5rem;
+            max-width: 800px;
+            margin: 0 auto;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+        
+        .content {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        
+        .section {
+            margin-bottom: 60px;
+        }
+        
+        .section h2 {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .highlights {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .highlight-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .highlight-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .highlight-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .highlight-card .content {
+            padding: 20px;
+            margin: 0;
+        }
+        
+        .highlight-card h3 {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .highlight-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        .cta {
+            text-align: center;
+            padding: 60px 0;
+            background: linear-gradient(135deg, #5e9ced, #4a7fc7);
+            color: white;
+        }
+        
+        .cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 15px 30px;
+            background: white;
+            color: #5e9ced;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .cta-button:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <!-- Logo on the Left -->
+        <div style="display: flex; align-items: center; flex-shrink: 0;">
+            <div><img src="logo.png" style="height: 40px; width: 40px; border-radius: 50%; margin-right: 10px;"></div>
+            <span><img style="width:100px; height:auto;" src="wanderly.png"></span>
+        </div>
+
+        <!-- Navigation Links -->
+        <div style="display: flex; gap: 2rem; flex-grow: 1; justify-content: center;">
+            <a href="main2.html" style="color: white; text-decoration: none; font-weight: 500; transition: all 0.3s ease;">HOME</a>
+            <a href="Chennai.html" style="color: white; text-decoration: none; font-weight: 500; transition: all 0.3s ease;">TRAVEL</a>
+            <a href="flights.html" style="color: white; text-decoration: none; font-weight: 500; transition: all 0.3s ease;">FLIGHTS</a>
+            <a href="#" style="color: white; text-decoration: none; font-weight: 500; transition: all 0.3s ease;">CONTACT</a>
+        </div>
+
+        <!-- Login/Signup Button -->
+        <div style="flex-shrink: 0;">
+            <div id="authButton">
+                <a href="signup.html"><button style="background-color: white; color: #1a73e8; border: none; padding: 10px 15px; border-radius: 4px; font-size: 14px; cursor: pointer; transition: background-color 0.3s ease; font-weight: bold;">
+                    Login / Signup
+                </button></a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="hero">
+        <div>
+            <h1>Cape Town, South Africa</h1>
+            <p>Where Mountains Meet the Ocean</p>
+        </div>
+    </div>
+
+    <div class="content">
+        <section class="section">
+            <h2>About Cape Town</h2>
+            <p>Cape Town, the Mother City of South Africa, is a stunning coastal metropolis where natural beauty meets rich history and vibrant culture. Nestled between the iconic Table Mountain and the Atlantic Ocean, this city offers breathtaking landscapes,
+                world-class wineries, and diverse experiences that capture the essence of South Africa.</p>
+        </section>
+
+        <section class="section">
+            <h2>Must-See Attractions</h2>
+            <div class="highlights">
+                <div class="highlight-card">
+                    <img src="table-mountain.jpg" alt="Table Mountain">
+                    <div class="content">
+                        <h3>Table Mountain</h3>
+                        <p>Take a cable car ride to the summit of this iconic flat-topped mountain for panoramic views of the city and ocean.</p>
+                    </div>
+                </div>
+                <div class="highlight-card">
+                    <img src="robben-island.jpg" alt="Robben Island">
+                    <div class="content">
+                        <h3>Robben Island</h3>
+                        <p>Visit the historic prison where Nelson Mandela was held, now a powerful symbol of freedom and democracy.</p>
+                    </div>
+                </div>
+                <div class="highlight-card">
+                    <img src="cape-point.jpg" alt="Cape Point">
+                    <div class="content">
+                        <h3>Cape Point</h3>
+                        <p>Explore the southwestern tip of Africa, where dramatic cliffs meet the merging waters of two oceans.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Local Experiences</h2>
+            <div class="highlights">
+                <div class="highlight-card">
+                    <img src="wine-tasting.jpg" alt="Wine Tasting">
+                    <div class="content">
+                        <h3>Wine Tasting</h3>
+                        <p>Sample world-class wines in the historic Stellenbosch and Franschhoek valleys.</p>
+                    </div>
+                </div>
+                <div class="highlight-card">
+                    <img src="bo-kaap.jpg" alt="Bo-Kaap">
+                    <div class="content">
+                        <h3>Bo-Kaap Culture</h3>
+                        <p>Discover the colorful houses and rich Cape Malay culture in this historic neighborhood.</p>
+                    </div>
+                </div>
+                <div class="highlight-card">
+                    <img src="penguins.jpg" alt="Boulders Beach">
+                    <div class="content">
+                        <h3>Penguin Watching</h3>
+                        <p>Meet the famous African penguins at Boulders Beach in their natural habitat.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <section class="cta">
+        <h2>Ready to Experience Cape Town?</h2>
+        <p style="margin-bottom: 30px;">Book your South African adventure today!</p>
+        <a href="flights.html" class="cta-button">Book Now</a>
+    </section>
+
+    <script>
+        // Check authentication state
+        function checkAuthState() {
+            const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+            const authButton = document.getElementById('authButton');
+            const userProfile = document.getElementById('userProfile');
+            const userName = document.getElementById('userName');
+            const userPhoto = document.getElementById('userPhoto');
+
+            if (isLoggedIn) {
+                authButton.style.display = 'none';
+                userProfile.style.display = 'block';
+                userName.textContent = localStorage.getItem('userName') || 'User';
+                userPhoto.src = localStorage.getItem('userPhoto') || 'default-avatar.png';
+            } else {
+                authButton.style.display = 'block';
+                userProfile.style.display = 'none';
+            }
+        }
+
+        // Check auth state on page load
+        window.onload = function() {
+            checkAuthState();
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wanderly - Login/Signup</title>
+</head>
+<body style="margin: 0; padding: 0; box-sizing: border-box; font-family: 'Arial', sans-serif; overflow-x: hidden; background-color: #f5f5f5;">
+    <!-- Navigation Bar -->
+    <nav style="display: flex; justify-content: space-between; align-items: center; background-color: #1a73e8; padding: 1rem 2rem; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); position: fixed; width: 100%; top: 0; z-index: 1000;">
+        <div style="display: flex; align-items: center;">
+            <!-- Placeholder for logo image -->
+            <div style="height: 40px; width: 40px; background-color: white; border-radius: 50%; margin-right: 10px;"></div>
+            <span style="color: white; font-size: 1.5rem; font-weight: bold;">Wanderly</span>
+        </div>
+
+        <div style="display: flex; gap: 2rem;">
+            <a href="#" style="color: white; text-decoration: none; font-weight: 500; transition: all 0.3s ease;">HOME</a>
+            <a href="#" style="color: white; text-decoration: none; font-weight: 500; transition: all 0.3s ease;">SERVICES</a>
+            <a href="#" style="color: white; text-decoration: none; font-weight: 500; transition: all 0.3s ease;">TRAVEL</a>
+            <a href="#" style="color: white; text-decoration: none; font-weight: 500; transition: all 0.3s ease;">CONTACT</a>
+        </div>
+    </nav>
+
+    <!-- Main Content with Login/Signup Box -->
+    <div style="display: flex; justify-content: center; align-items: center; height: 100vh; padding-top: 73px;">
+        <!-- Login/Signup Container - Moved further to the right -->
+        <div style="background-color: white; width: 400px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); padding: 30px; margin-left: 25%; position: relative;">
+            <!-- Toggle Tabs -->
+            <div style="display: flex; margin-bottom: 20px; border-bottom: 1px solid #eee;">
+                <div id="loginTab" onclick="switchTab('login')" style="padding: 10px 20px; cursor: pointer; color: #1a73e8; border-bottom: 2px solid #1a73e8; font-weight: bold;">Login</div>
+                <div id="signupTab" onclick="switchTab('signup')" style="padding: 10px 20px; cursor: pointer; color: #777;">Signup</div>
+            </div>
+
+            <!-- Login Form -->
+            <div id="loginForm" style="display: block;">
+                <h2 style="color: #333; margin-bottom: 20px;">Welcome Back!</h2>
+                
+                <div style="margin-bottom: 15px;">
+                    <label for="loginEmail" style="display: block; margin-bottom: 5px; color: #555; font-weight: 500;">Email</label>
+                    <input type="email" id="loginEmail" placeholder="Enter your email" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px;">
+                </div>
+                
+                <div style="margin-bottom: 20px;">
+                    <label for="loginPassword" style="display: block; margin-bottom: 5px; color: #555; font-weight: 500;">Password</label>
+                    <input type="password" id="loginPassword" placeholder="Enter your password" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px;">
+                </div>
+                
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <div>
+                        <input type="checkbox" id="rememberMe">
+                        <label for="rememberMe" style="color: #555; font-size: 14px;">Remember me</label>
+                    </div>
+                    <a href="#" style="color: #1a73e8; text-decoration: none; font-size: 14px;">Forgot Password?</a>
+                </div>
+                
+                <button onclick="handleLogin()" style="width: 100%; background-color: #1a73e8; color: white; border: none; padding: 12px; border-radius: 4px; font-size: 16px; cursor: pointer; transition: background-color 0.3s;">Login</button>
+            </div>
+
+            <!-- Signup Form -->
+            <div id="signupForm" style="display: none;">
+                <h2 style="color: #333; margin-bottom: 20px;">Create Account</h2>
+                
+                <div style="margin-bottom: 15px;">
+                    <label for="signupName" style="display: block; margin-bottom: 5px; color: #555; font-weight: 500;">Full Name</label>
+                    <input type="text" id="signupName" placeholder="Enter your full name" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px;">
+                </div>
+                
+                <div style="margin-bottom: 15px;">
+                    <label for="signupEmail" style="display: block; margin-bottom: 5px; color: #555; font-weight: 500;">Email</label>
+                    <input type="email" id="signupEmail" placeholder="Enter your email" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px;">
+                </div>
+                
+                <div style="margin-bottom: 15px;">
+                    <label for="signupPassword" style="display: block; margin-bottom: 5px; color: #555; font-weight: 500;">Password</label>
+                    <input type="password" id="signupPassword" placeholder="Enter your password" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px;">
+                </div>
+                
+                <div style="margin-bottom: 20px;">
+                    <label for="signupConfirmPassword" style="display: block; margin-bottom: 5px; color: #555; font-weight: 500;">Confirm Password</label>
+                    <input type="password" id="signupConfirmPassword" placeholder="Confirm your password" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px;">
+                </div>
+                
+                <div style="margin-bottom: 20px;">
+                    <input type="checkbox" id="termsAgree">
+                    <label for="termsAgree" style="color: #555; font-size: 14px;">I agree to the <a href="#" style="color: #1a73e8; text-decoration: none;">Terms & Conditions</a></label>
+                </div>
+                
+                <button onclick="handleSignup()" style="width: 100%; background-color: #1a73e8; color: white; border: none; padding: 12px; border-radius: 4px; font-size: 16px; cursor: pointer; transition: background-color 0.3s;">Create Account</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Function to switch between login and signup tabs
+        function switchTab(tab) {
+            if (tab === 'login') {
+                document.getElementById('loginTab').style.color = '#1a73e8';
+                document.getElementById('loginTab').style.borderBottom = '2px solid #1a73e8';
+                document.getElementById('loginTab').style.fontWeight = 'bold';
+                document.getElementById('signupTab').style.color = '#777';
+                document.getElementById('signupTab').style.borderBottom = 'none';
+                document.getElementById('signupTab').style.fontWeight = 'normal';
+                
+                document.getElementById('loginForm').style.display = 'block';
+                document.getElementById('signupForm').style.display = 'none';
+            } else {
+                document.getElementById('signupTab').style.color = '#1a73e8';
+                document.getElementById('signupTab').style.borderBottom = '2px solid #1a73e8';
+                document.getElementById('signupTab').style.fontWeight = 'bold';
+                document.getElementById('loginTab').style.color = '#777';
+                document.getElementById('loginTab').style.borderBottom = 'none';
+                document.getElementById('loginTab').style.fontWeight = 'normal';
+                
+                document.getElementById('loginForm').style.display = 'none';
+                document.getElementById('signupForm').style.display = 'block';
+            }
+        }
+
+        // Function to handle login
+        function handleLogin() {
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            if (!email || !password) {
+                alert('Please fill in all fields');
+                return;
+            }
+            
+            // This would typically connect to a backend service
+            console.log('Login attempt:', { email });
+            alert('Login successful! (This is a demo)');
+        }
+
+        // Function to handle signup
+        function handleSignup() {
+            const name = document.getElementById('signupName').value;
+            const email = document.getElementById('signupEmail').value;
+            const password = document.getElementById('signupPassword').value;
+            const confirmPassword = document.getElementById('signupConfirmPassword').value;
+            const termsAgreed = document.getElementById('termsAgree').checked;
+            
+            if (!name || !email || !password || !confirmPassword) {
+                alert('Please fill in all fields');
+                return;
+            }
+            
+            if (password !== confirmPassword) {
+                alert('Passwords do not match');
+                return;
+            }
+            
+            if (!termsAgreed) {
+                alert('Please agree to the Terms & Conditions');
+                return;
+            }
+            
+            // This would typically connect to a backend service
+            console.log('Signup attempt:', { name, email });
+            alert('Account created successfully! (This is a demo)');
+        }
+    </script>
+</body>
+</html>

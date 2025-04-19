@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flights - Wanderly</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            margin: 0;
+            padding-top: 70px;
+        }
+        
+        .navbar {
+            display: flex;
+            align-items: center;
+            background-color: #5e9ced;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            justify-content: space-between;
+        }
+        
+        .search-container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .search-form {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .form-group {
+            position: relative;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+            font-weight: 500;
+        }
+        
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        
+        .form-group i {
+            position: absolute;
+            right: 15px;
+            top: 35px;
+            color: #5e9ced;
+        }
+        
+        .search-button {
+            background: linear-gradient(90deg, #5e9ced, #4a7fc7);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+        
+        .search-button:hover {
+            transform: translateY(-2px);
+        }
+        
+        .filters {
+            display: flex;
+            gap: 15px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        
+        .filter-button {
+            padding: 8px 15px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-button:hover,
+        .filter-button.active {
+            background: #5e9ced;
+            color: white;
+            border-color: #5e9ced;
+        }
+        
+        .results-container {
+            margin-top: 20px;
+        }
+        
+        .flight-card {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 20px;
+            align-items: center;
+            min-height: 180px;
+        }
+        
+        .flight-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .airline-logo {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+        }
+        
+        .flight-details {
+            flex: 1;
+        }
+        
+        .flight-time {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin: 15px 0;
+            text-align: center;
+        }
+        
+        .flight-time span {
+            min-width: 80px;
+        }
+        
+        .flight-time i {
+            font-size: 20px;
+            color: #5e9ced;
+        }
+        
+        .flight-path {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin: 15px 0;
+            color: #666;
+        }
+        
+        .flight-path i {
+            color: #5e9ced;
+        }
+        
+        .stop-point {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: #ff6b6b;
+        }
+        
+        .flight-duration {
+            color: #666;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        
+        .flight-features {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        
+        .feature {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .feature i {
+            color: #5e9ced;
+        }
+        
+        .flight-price {
+            text-align: right;
+            padding: 10px;
+        }
+        
+        .price {
+            font-size: 28px;
+            font-weight: bold;
+            color: #5e9ced;
+            margin-bottom: 10px;
+        }
+        
+        .price-info {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .book-button {
+            background: linear-gradient(90deg, #5e9ced, #4a7fc7);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+            width: 100%;
+        }
+        
+        .book-button:hover {
+            transform: translateY(-2px);
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+        }
+        
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+        
+        @media (max-width: 768px) {
+            .flight-card {
+                grid-template-columns: 1fr;
+            }
+            .flight-price {
+                text-align: left;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header id="header">
+        <div class="site-info">Flight Booking</div>
+        <nav>
+            <a href="#" class="nav-button">
+                <img src="icon1.svg" alt="Icon 1">
+            </a>
+            <a href="#" class="nav-button">
+                <img src="icon2.svg" alt="Icon 2">
+            </a>
+        </nav>
+    </header>
+    <nav class="navbar">
+        <!-- Logo on the Left -->
+        <div style="display: flex; align-items: center; flex-shrink: 0;">
+            <div><img src="logo.png" style="height: 40px; width: 40px; border-radius: 50%; margin-right: 10px;"></div>
+            <span><img style="width:100px; height:auto;" src="wanderly.png"></span>
+        </div>
+
+        <!-- Navigation Links Centered -->
+        <div style="display: flex; gap: 2rem; flex-grow: 1; justify-content: center;">
+            <a href="main2.html" style="color: white; text-decoration: none; font-weight: 500; transition: all 0.3s ease;">HOME</a>
+            <a href="Chennai.html" style="color: white; text-decoration: none; font-weight: 500; transition: all 0.3s ease;">TRAVEL</a>
+            <a href="flights.html" style="color: white; text-decoration: none; font-weight: 500; transition: all 0.3s ease;">FLIGHTS</a>
+            <a href="#" style="color: white; text-decoration: none; font-weight: 500; transition: all 0.3s ease;">CONTACT</a>
+        </div>
+
+        <!-- Login/Signup Button -->
+        <div style="flex-shrink: 0;">
+            <a href="signup.html"><button style="background-color: white; color: #1a73e8; border: none; padding: 10px 15px; border-radius: 4px; font-size: 14px; cursor: pointer; transition: background-color 0.3s ease; font-weight: bold;margin-right:60px;">
+                Login / Signup
+            </button></a>
+        </div>
+    </nav>
+    <div class="search-container">
+        <form id="flightSearchForm" class="search-form">
+            <div class="form-group">
+                <label>From</label>
+                <input type="text" id="fromCity" placeholder="Enter city" required>
+                <i class="fas fa-plane-departure"></i>
+            </div>
+            <div class="form-group">
+                <label>To</label>
+                <input type="text" id="toCity" placeholder="Enter city" required>
+                <i class="fas fa-plane-arrival"></i>
+            </div>
+            <div class="form-group">
+                <label>Departure Date</label>
+                <input type="text" id="departureDate" placeholder="Select date" required>
+                <i class="fas fa-calendar"></i>
+            </div>
+            <div class="form-group">
+                <label>Return Date (Optional)</label>
+                <input type="text" id="returnDate" placeholder="Select date (Optional)">
+                <i class="fas fa-calendar"></i>
+            </div>
+            <div class="form-group">
+                <label>Passengers</label>
+                <select id="passengers" required>
+                    <option value="1">1 Passenger</option>
+                    <option value="2">2 Passengers</option>
+                    <option value="3">3 Passengers</option>
+                    <option value="4">4 Passengers</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Class</label>
+                <select id="class" required>
+                    <option value="economy">Economy</option>
+                    <option value="premium">Premium Economy</option>
+                    <option value="business">Business</option>
+                    <option value="first">First Class</option>
+                </select>
+            </div>
+            <button type="submit" class="search-button">Search Flights</button>
+        </form>
+
+        <div class="filters">
+            <button class="filter-button" data-filter="price">Price</button>
+            <button class="filter-button" data-filter="duration">Duration</button>
+            <button class="filter-button" data-filter="departure">Departure Time</button>
+            <button class="filter-button" data-filter="arrival">Arrival Time</button>
+            <button class="filter-button" data-filter="stops">Stops</button>
+        </div>
+
+        <div class="results-container" id="resultsContainer">
+            <!-- Results will be populated here -->
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+        // Amadeus API Configuration
+        const AMADEUS_CLIENT_ID = 'pvcZWLyKneD1xGnQGjEpHYE2sCH4jM4a';
+        const AMADEUS_CLIENT_SECRET = 'WPT73Ou4i2mXa2sm';
+        let accessToken = '';
+
+        // Function to get Amadeus API access token
+        async function getAccessToken() {
+            try {
+                const tokenResponse = await fetch('https://test.api.amadeus.com/v1/security/oauth2/token', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: 'grant_type=client_credentials&client_id=' + AMADEUS_CLIENT_ID + '&client_secret=' + AMADEUS_CLIENT_SECRET
+                });
+
+                if (!tokenResponse.ok) {
+                    const errorData = await tokenResponse.json();
+                    console.error('Token Error Response:', errorData);
+                    throw new Error(`Failed to get access token: ${JSON.stringify(errorData)}`);
+                }
+
+                const tokenData = await tokenResponse.json();
+                console.log('Token successfully obtained');
+                accessToken = tokenData.access_token;
+                return accessToken;
+            } catch (error) {
+                console.error('Detailed token error:', error);
+                throw error;
+            }
+        }
+
+        // Function to search flights
+        async function searchFlights() {
+            const fromCity = document.getElementById('fromCity').value;
+            const toCity = document.getElementById('toCity').value;
+            const departureDate = document.getElementById('departureDate').value;
+            const returnDate = document.getElementById('returnDate').value;
+            const passengers = document.getElementById('passengers').value;
+            const travelClass = document.getElementById('class').value;
+
+            const resultsContainer = document.getElementById('resultsContainer');
+            resultsContainer.innerHTML = '<div class="loading">Searching for flights...</div>';
+
+            try {
+                // Get new access token for each search
+                console.log('Getting access token...');
+                await getAccessToken();
+
+                // Get IATA codes for cities
+                console.log('Searching for origin city:', fromCity);
+                const fromResponse = await fetch(`https://test.api.amadeus.com/v1/reference-data/locations?keyword=${encodeURIComponent(fromCity)}&subType=CITY,AIRPORT&page[limit]=10`, {
+                    headers: {
+                        'Authorization': `Bearer ${accessToken}`
+                    }
+                });
+
+                if (!fromResponse.ok) {
+                    const errorData = await fromResponse.json();
+                    console.error('Origin city error:', errorData);
+                    throw new Error(`Origin city search failed: ${JSON.stringify(errorData)}`);
+                }
+
+                const fromData = await fromResponse.json();
+                console.log('Origin city response:', fromData);
+
+                if (!fromData.data || fromData.data.length === 0) {
+                    throw new Error(`No airport found for: ${fromCity}`);
+                }
+                const fromCode = fromData.data[0].iataCode;
+                console.log('Selected origin airport:', fromCode);
+
+                console.log('Searching for destination city:', toCity);
+                const toResponse = await fetch(`https://test.api.amadeus.com/v1/reference-data/locations?keyword=${encodeURIComponent(toCity)}&subType=CITY,AIRPORT&page[limit]=10`, {
+                    headers: {
+                        'Authorization': `Bearer ${accessToken}`
+                    }
+                });
+
+                if (!toResponse.ok) {
+                    const errorData = await toResponse.json();
+                    console.error('Destination city error:', errorData);
+                    throw new Error(`Destination city search failed: ${JSON.stringify(errorData)}`);
+                }
+
+                const toData = await toResponse.json();
+                console.log('Destination city response:', toData);
+
+                if (!toData.data || toData.data.length === 0) {
+                    throw new Error(`No airport found for: ${toCity}`);
+                }
+                const toCode = toData.data[0].iataCode;
+                console.log('Selected destination airport:', toCode);
+
+                // Construct flight search URL
+                let apiUrl = `https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=${fromCode}&destinationLocationCode=${toCode}&departureDate=${departureDate}&adults=${passengers}&travelClass=${travelClass.toUpperCase()}&max=20&currencyCode=INR`;
+
+                if (returnDate && returnDate.trim() !== '') {
+                    apiUrl += `&returnDate=${returnDate}`;
+                }
+
+                console.log('Searching flights with URL:', apiUrl);
+                const flightResponse = await fetch(apiUrl, {
+                    headers: {
+                        'Authorization': `Bearer ${accessToken}`
+                    }
+                });
+
+                if (!flightResponse.ok) {
+                    const errorData = await flightResponse.json();
+                    console.error('Flight search error:', errorData);
+                    throw new Error(`Flight search failed: ${JSON.stringify(errorData)}`);
+                }
+
+                const flightData = await flightResponse.json();
+                console.log('Flight search response:', flightData);
+
+                if (flightData.data && flightData.data.length > 0) {
+                    displayResults(flightData.data);
+                } else {
+                    resultsContainer.innerHTML = `
+                        <div class="no-results">
+                            <p>No flights found for this route and date.</p>
+                            <p style="font-size: 14px; color: #666; margin-top: 10px;">
+                                Try different dates or nearby airports.
+                            </p>
+                        </div>`;
+                }
+            } catch (error) {
+                console.error('Search error:', error);
+                resultsContainer.innerHTML = `
+                    <div class="no-results">
+                        <p>Error searching for flights:</p>
+                        <p style="color: #ff6b6b; font-size: 14px;">${error.message}</p>
+                        <p style="font-size: 12px; margin-top: 10px;">
+                            Please try:
+                            <ul style="text-align: left; margin-top: 5px;">
+                                <li>Using city names (e.g., "Mumbai" instead of "BOM")</li>
+                                <li>Checking your dates are in the future</li>
+                                <li>Searching for major airports</li>
+                            </ul>
+                        </p>
+                    </div>
+                `;
+            }
+        }
+
+        function displayResults(flights) {
+            const resultsContainer = document.getElementById('resultsContainer');
+
+            resultsContainer.innerHTML = flights.map(flight => {
+                        const itinerary = flight.itineraries[0];
+                        const firstSegment = itinerary.segments[0];
+                        const lastSegment = itinerary.segments[itinerary.segments.length - 1];
+
+                        const departureTime = new Date(firstSegment.departure.at);
+                        const arrivalTime = new Date(lastSegment.arrival.at);
+                        const stops = itinerary.segments.length - 1;
+
+                        // Calculate total duration
+                        const totalDuration = itinerary.duration;
+
+                        // Format price
+                        const priceInINR = Math.round(flight.price.total * 82); // Using current approximate exchange rate
+
+                        return `
+                    <div class="flight-card">
+                        <div class="flight-info">
+                            <img src="https://pics.avs.io/200/200/${firstSegment.carrierCode}.png" alt="${firstSegment.carrierCode}" class="airline-logo">
+                            <div class="flight-details">
+                                <div style="font-size: 14px; color: #666; margin-bottom: 5px;">
+                                    ${firstSegment.carrierCode} ${firstSegment.number} • ${departureTime.toLocaleDateString('en-US', { weekday: 'short', day: 'numeric', month: 'short' })}
+                                </div>
+                                <div class="flight-time">
+                                    <div style="text-align: center;">
+                                        <span>${departureTime.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false })}</span>
+                                        <div style="font-size: 12px; color: #666;">${firstSegment.departure.iataCode}</div>
+                                    </div>
+                                    <i class="fas fa-plane"></i>
+                                    <div style="text-align: center;">
+                                        <span>${arrivalTime.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false })}</span>
+                                        <div style="font-size: 12px; color: #666;">${lastSegment.arrival.iataCode}</div>
+                                    </div>
+                                </div>
+                                <div class="flight-path">
+                                    <i class="fas fa-circle"></i>
+                                    ${stops === 0 ? 
+                                        '<i class="fas fa-plane"></i>' : 
+                                        `<i class="fas fa-plane"></i>
+                                        <div class="stop-point">
+                                            <i class="fas fa-circle"></i>
+                                            ${stops} stop${stops > 1 ? 's' : ''}
+                                            ${itinerary.segments.map(seg => seg.arrival.iataCode).slice(0, -1).join(', ')}
+                                        </div>
+                                        <i class="fas fa-plane"></i>`
+                                    }
+                                    <i class="fas fa-circle"></i>
+                                </div>
+                                <div class="flight-duration">Duration: ${totalDuration.replace('PT', '').toLowerCase()}</div>
+                                <div class="flight-features">
+                                    <div class="feature">
+                                        <i class="fas fa-chair"></i>
+                                        <span>${flight.travelerPricings[0].fareDetailsBySegment[0].cabin}</span>
+                                    </div>
+                                    ${flight.travelerPricings[0].fareDetailsBySegment[0].includedCheckedBags ? `
+                                        <div class="feature">
+                                            <i class="fas fa-suitcase"></i>
+                                            <span>${flight.travelerPricings[0].fareDetailsBySegment[0].includedCheckedBags.weight || ''} ${flight.travelerPricings[0].fareDetailsBySegment[0].includedCheckedBags.weightUnit || 'Bag'}</span>
+                                        </div>
+                                    ` : ''}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flight-price">
+                            <div class="price">₹${priceInINR.toLocaleString('en-IN')}</div>
+                            <div class="price-info">per passenger</div>
+                            ${flight.numberOfBookableSeats ? `
+                                <div style="font-size: 12px; color: #666; margin-top: 5px;">
+                                    ${flight.numberOfBookableSeats} seats left
+                                </div>
+                            ` : ''}
+                        </div>
+                        <button class="book-button" onclick="alert('Booking functionality will be implemented soon!')">Book Now</button>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Initialize date pickers with different configurations
+        flatpickr("#departureDate", {
+            minDate: "today",
+            dateFormat: "Y-m-d",
+            required: true
+        });
+
+        flatpickr("#returnDate", {
+            minDate: "today",
+            dateFormat: "Y-m-d",
+            required: false
+        });
+
+        // Handle form submission
+        document.getElementById('flightSearchForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            searchFlights();
+        });
+
+        // Handle filter buttons
+        document.querySelectorAll('.filter-button').forEach(button => {
+            button.addEventListener('click', function() {
+                this.classList.toggle('active');
+                // Add filter logic here
+            });
+        });
+
+        // Check authentication state
+        function checkAuthState() {
+            const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+            const authButton = document.getElementById('authButton');
+            const userProfile = document.getElementById('userProfile');
+            const userName = document.getElementById('userName');
+            const userPhoto = document.getElementById('userPhoto');
+
+            if (isLoggedIn) {
+                authButton.style.display = 'none';
+                userProfile.style.display = 'block';
+                const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                userName.textContent = currentUser.name;
+                userPhoto.src = currentUser.photo || 'default-avatar.png';
+            } else {
+                authButton.style.display = 'block';
+                userProfile.style.display = 'none';
+            }
+        }
+
+        function handleLogout() {
+            localStorage.removeItem('isLoggedIn');
+            localStorage.removeItem('currentUser');
+            window.location.reload();
+        }
+
+        // Check auth state on page load
+        window.onload = function() {
+            checkAuthState();
+        }
+    </script>
+</body>
+
+</html>

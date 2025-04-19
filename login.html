@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Wanderly</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #5e9ced, #4a7fc7);
+            min-height: 100vh;
+            margin: 0;
+            padding-top: 70px;
+            /* Add padding for navbar */
+        }
+        
+        .navbar {
+            display: flex;
+            align-items: center;
+            background-color: #5e9ced;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            justify-content: space-between;
+        }
+        
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: calc(100vh - 70px);
+            /* Adjust for navbar height */
+            padding: 20px;
+        }
+        
+        .bird-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            max-width: 50%;
+            padding: 20px;
+        }
+        
+        .bird-image img {
+            max-width: 100%;
+            max-height: 70vh;
+            height: auto;
+            width: auto;
+            animation: float 3s ease-in-out infinite;
+            object-fit: contain;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
+        }
+        
+        .login-container {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 400px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .login-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #5e9ced, #4a7fc7);
+        }
+        
+        .logo-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .logo-section img {
+            height: 50px;
+            width: 50px;
+            border-radius: 50%;
+            margin-bottom: 15px;
+        }
+        
+        .logo-section h1 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .form-group i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #5e9ced;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 15px 15px 15px 45px;
+            border: 2px solid #e1e1e1;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .form-group input:focus {
+            border-color: #5e9ced;
+            outline: none;
+            box-shadow: 0 0 10px rgba(94, 156, 237, 0.1);
+        }
+        
+        .form-group.error input {
+            border-color: #ff4444;
+        }
+        
+        .error-message {
+            color: #ff4444;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        .form-group.error .error-message {
+            display: block;
+        }
+        
+        .remember-forgot {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #666;
+        }
+        
+        .forgot-password {
+            color: #5e9ced;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        
+        .login-button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(90deg, #5e9ced, #4a7fc7);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .login-button:hover {
+            transform: translateY(-2px);
+        }
+        
+        .signup-link {
+            text-align: center;
+            margin-top: 20px;
+            color: #666;
+        }
+        
+        .signup-link a {
+            color: #5e9ced;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        .social-login {
+            margin-top: 30px;
+            text-align: center;
+        }
+        
+        .social-login p {
+            color: #666;
+            margin-bottom: 15px;
+            position: relative;
+        }
+        
+        .social-login p::before,
+        .social-login p::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 45%;
+            height: 1px;
+            background: #e1e1e1;
+        }
+        
+        .social-login p::before {
+            left: 0;
+        }
+        
+        .social-login p::after {
+            right: 0;
+        }
+        
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .social-icons button {
+            width: 50px;
+            height: 50px;
+            border: none;
+            border-radius: 50%;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .social-icons button:hover {
+            transform: translateY(-3px);
+        }
+        
+        .social-icons i {
+            font-size: 20px;
+        }
+        
+        .fa-google {
+            color: #DB4437;
+        }
+        
+        .fa-facebook {
+            color: #4267B2;
+        }
+        
+        .fa-twitter {
+            color: #1DA1F2;
+        }
+        
+        @keyframes shake {
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+            25% {
+                transform: translateX(-5px);
+            }
+            75% {
+                transform: translateX(5px);
+            }
+        }
+        
+        .shake {
+            animation: shake 0.5s ease-in-out;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <!-- Logo on the Left -->
+        <div style="display: flex; align-items: center; flex-shrink: 0;">
+            <div><img src="logo.png" style="height: 40px; width: 40px; border-radius: 50%; margin-right: 10px;"></div>
+            <span><img style="width:100px; height:auto;" src="wanderly.png"></span>
+        </div>
+
+        <!-- Navigation Links -->
+        <div style="display: flex; gap: 2rem; flex-grow: 1; justify-content: center;">
+            <a href="main2.html" style="color: white; text-decoration: none; font-weight: 500; transition: all 0.3s ease;">HOME</a>
+            <a href="Chennai.html" style="color: white; text-decoration: none; font-weight: 500; transition: all 0.3s ease;">TRAVEL</a>
+            <a href="flights.html" style="color: white; text-decoration: none; font-weight: 500; transition: all 0.3s ease;">FLIGHTS</a>
+            <a href="#" style="color: white; text-decoration: none; font-weight: 500; transition: all 0.3s ease;">CONTACT</a>
+        </div>
+
+        <!-- Login/Signup Button or User Profile -->
+        <div style="flex-shrink: 0;">
+            <div id="authButton">
+                <a href="signup.html"><button style="background-color: white; color: #1a73e8; border: none; padding: 10px 15px; border-radius: 4px; font-size: 14px; cursor: pointer; transition: background-color 0.3s ease; font-weight: bold;">
+                    Login / Signup
+                </button></a>
+            </div>
+            <div id="userProfile" style="display: none;">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <img id="userPhoto" src="default-avatar.png" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+                    <span id="userName" style="color: white; font-weight: 500;"></span>
+                    <button onclick="handleLogout()" style="background-color: white; color: #1a73e8; border: none; padding: 8px 12px; border-radius: 4px; font-size: 12px; cursor: pointer; margin-left: 10px;">
+                        Logout
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="bird-image">
+            <img src="bird3.png" alt="Flying Bird">
+        </div>
+        <div class="login-container">
+            <div class="logo-section">
+                <img src="logo.png" alt="Wanderly Logo">
+                <h1>Welcome Back!</h1>
+                <p style="color: #666;">Please login to continue</p>
+            </div>
+
+            <form id="loginForm" onsubmit="return handleLogin(event)">
+                <div class="form-group">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" id="email" placeholder="Email address" required>
+                    <div class="error-message">Please enter a valid email address</div>
+                </div>
+
+                <div class="form-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="password" placeholder="Password" required>
+                    <div class="error-message">Password must be at least 6 characters</div>
+                </div>
+
+                <div class="remember-forgot">
+                    <label class="remember-me">
+                        <input type="checkbox" id="remember">
+                        <span>Remember me</span>
+                    </label>
+                    <a href="#" class="forgot-password">Forgot Password?</a>
+                </div>
+
+                <button type="submit" class="login-button">Login</button>
+            </form>
+
+            <div class="signup-link">
+                Don't have an account? <a href="signup.html">Sign up</a>
+            </div>
+
+            <div class="social-login">
+                <p>Or continue with</p>
+                <div class="social-icons">
+                    <button onclick="socialLogin('google')">
+                        <i class="fab fa-google"></i>
+                    </button>
+                    <button onclick="socialLogin('facebook')">
+                        <i class="fab fa-facebook"></i>
+                    </button>
+                    <button onclick="socialLogin('twitter')">
+                        <i class="fab fa-twitter"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function handleLogin(event) {
+            event.preventDefault();
+
+            const email = document.getElementById('email');
+            const password = document.getElementById('password');
+            let isValid = true;
+
+            // Email validation
+            if (!isValidEmail(email.value)) {
+                email.parentElement.classList.add('error');
+                isValid = false;
+            } else {
+                email.parentElement.classList.remove('error');
+            }
+
+            // Password validation
+            if (password.value.length < 6) {
+                password.parentElement.classList.add('error');
+                isValid = false;
+            } else {
+                password.parentElement.classList.remove('error');
+            }
+
+            if (!isValid) {
+                document.querySelector('.login-button').classList.add('shake');
+                setTimeout(() => {
+                    document.querySelector('.login-button').classList.remove('shake');
+                }, 500);
+                return false;
+            }
+
+            // Get stored users from localStorage
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            const user = users.find(u => u.email === email.value && u.password === password.value);
+
+            if (user) {
+                // Store login state
+                localStorage.setItem('isLoggedIn', 'true');
+                localStorage.setItem('currentUser', JSON.stringify({
+                    email: user.email,
+                    name: user.name,
+                    photo: user.photo || 'default-avatar.png'
+                }));
+
+                // Redirect to home page
+                window.location.href = 'main2.html';
+            } else {
+                alert('Invalid email or password');
+            }
+
+            return false;
+        }
+
+        function isValidEmail(email) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+
+        function socialLogin(platform) {
+            // For demonstration, we'll create a mock social login
+            const mockUsers = {
+                google: {
+                    name: 'Google User',
+                    email: 'google@example.com'
+                },
+                facebook: {
+                    name: 'Facebook User',
+                    email: 'facebook@example.com'
+                },
+                twitter: {
+                    name: 'Twitter User',
+                    email: 'twitter@example.com'
+                }
+            };
+
+            const user = mockUsers[platform];
+            localStorage.setItem('isLoggedIn', 'true');
+            localStorage.setItem('currentUser', JSON.stringify({
+                email: user.email,
+                name: user.name,
+                photo: 'default-avatar.png'
+            }));
+
+            window.location.href = 'main2.html';
+        }
+
+        // Check if user is already logged in
+        window.onload = function() {
+            if (localStorage.getItem('isLoggedIn') === 'true') {
+                window.location.href = 'main2.html';
+            }
+        }
+    </script>
+</body>
+
+</html>

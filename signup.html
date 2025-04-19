@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Wanderly</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #5e9ced, #4a7fc7);
+            min-height: 100vh;
+            margin: 0;
+            padding-top: 70px;
+            /* Add padding for navbar */
+        }
+        
+        .navbar {
+            display: flex;
+            align-items: center;
+            background-color: #5e9ced;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            justify-content: space-between;
+        }
+        
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: calc(100vh - 70px);
+            /* Adjust for navbar height */
+            padding: 20px;
+            gap: 50px;
+            max-width: 1000px;
+            width: 100%;
+            margin: 0 auto;
+        }
+        
+        .bird-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .bird-image img {
+            max-width: 100%;
+            height: auto;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
+        }
+        
+        .signup-container {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 500px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .signup-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #5e9ced, #4a7fc7);
+        }
+        
+        .logo-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .logo-section img {
+            height: 50px;
+            width: 50px;
+            border-radius: 50%;
+            margin-bottom: 15px;
+        }
+        
+        .logo-section h1 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .form-group i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #5e9ced;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 15px 15px 15px 45px;
+            border: 2px solid #e1e1e1;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .form-group input:focus {
+            border-color: #5e9ced;
+            outline: none;
+            box-shadow: 0 0 10px rgba(94, 156, 237, 0.1);
+        }
+        
+        .form-group.error input {
+            border-color: #ff4444;
+        }
+        
+        .error-message {
+            color: #ff4444;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        .form-group.error .error-message {
+            display: block;
+        }
+        
+        .terms {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 20px;
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .terms input {
+            margin-top: 4px;
+        }
+        
+        .terms a {
+            color: #5e9ced;
+            text-decoration: none;
+        }
+        
+        .signup-button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(90deg, #5e9ced, #4a7fc7);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .signup-button:hover {
+            transform: translateY(-2px);
+        }
+        
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+            color: #666;
+        }
+        
+        .login-link a {
+            color: #5e9ced;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        .social-signup {
+            margin-top: 30px;
+            text-align: center;
+        }
+        
+        .social-signup p {
+            color: #666;
+            margin-bottom: 15px;
+            position: relative;
+        }
+        
+        .social-signup p::before,
+        .social-signup p::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 45%;
+            height: 1px;
+            background: #e1e1e1;
+        }
+        
+        .social-signup p::before {
+            left: 0;
+        }
+        
+        .social-signup p::after {
+            right: 0;
+        }
+        
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .social-icons button {
+            width: 50px;
+            height: 50px;
+            border: none;
+            border-radius: 50%;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .social-icons button:hover {
+            transform: translateY(-3px);
+        }
+        
+        .social-icons i {
+            font-size: 20px;
+        }
+        
+        .fa-google {
+            color: #DB4437;
+        }
+        
+        .fa-facebook {
+            color: #4267B2;
+        }
+        
+        .fa-twitter {
+            color: #1DA1F2;
+        }
+        
+        @keyframes shake {
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+            25% {
+                transform: translateX(-5px);
+            }
+            75% {
+                transform: translateX(5px);
+            }
+        }
+        
+        .shake {
+            animation: shake 0.5s ease-in-out;
+        }
+        
+        .password-strength {
+            height: 5px;
+            background: #e1e1e1;
+            margin-top: 10px;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        
+        .password-strength-bar {
+            height: 100%;
+            width: 0;
+            transition: width 0.3s ease, background-color 0.3s ease;
+        }
+        
+        .weak {
+            background-color: #ff4444;
+            width: 33.33%;
+        }
+        
+        .medium {
+            background-color: #ffd700;
+            width: 66.66%;
+        }
+        
+        .strong {
+            background-color: #00c851;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <!-- Logo on the Left -->
+        <div style="display: flex; align-items: center; flex-shrink: 0;">
+            <div><img src="logo.png" style="height: 40px; width: 40px; border-radius: 50%; margin-right: 10px;"></div>
+            <span><img style="width:100px; height:auto;" src="wanderly.png"></span>
+        </div>
+
+        <!-- Navigation Links -->
+        <div style="display: flex; gap: 2rem; flex-grow: 1; justify-content: center;">
+            <a href="main2.html" style="color: white; text-decoration: none; font-weight: 500; transition: all 0.3s ease;">HOME</a>
+            <a href="Chennai.html" style="color: white; text-decoration: none; font-weight: 500; transition: all 0.3s ease;">TRAVEL</a>
+            <a href="flights.html" style="color: white; text-decoration: none; font-weight: 500; transition: all 0.3s ease;">FLIGHTS</a>
+            <a href="#" style="color: white; text-decoration: none; font-weight: 500; transition: all 0.3s ease;">CONTACT</a>
+        </div>
+
+        <!-- Login/Signup Button or User Profile -->
+        <div style="flex-shrink: 0;">
+            <div id="authButton">
+                <a href="signup.html"><button style="background-color: white; color: #1a73e8; border: none; padding: 10px 15px; border-radius: 4px; font-size: 14px; cursor: pointer; transition: background-color 0.3s ease; font-weight: bold;">
+                    Login / Signup
+                </button></a>
+            </div>
+            <div id="userProfile" style="display: none;">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <img id="userPhoto" src="default-avatar.png" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+                    <span id="userName" style="color: white; font-weight: 500;"></span>
+                    <button onclick="handleLogout()" style="background-color: white; color: #1a73e8; border: none; padding: 8px 12px; border-radius: 4px; font-size: 12px; cursor: pointer; margin-left: 10px;">
+                        Logout
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="bird-image">
+            <img src="bird3.png" alt="Flying Bird">
+        </div>
+        <div class="signup-container">
+            <div class="logo-section">
+                <img src="logo.png" alt="Wanderly Logo">
+                <h1>Create Account</h1>
+                <p style="color: #666;">Join our community of travelers</p>
+            </div>
+
+            <form id="signupForm" onsubmit="return handleSignup(event)">
+                <div class="form-row">
+                    <div class="form-group">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="firstName" placeholder="First Name" required>
+                        <div class="error-message">Please enter your first name</div>
+                    </div>
+                    <div class="form-group">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="lastName" placeholder="Last Name" required>
+                        <div class="error-message">Please enter your last name</div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" id="email" placeholder="Email address" required>
+                    <div class="error-message">Please enter a valid email address</div>
+                </div>
+
+                <div class="form-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="password" placeholder="Password" required onkeyup="checkPasswordStrength(this.value)">
+                    <div class="password-strength">
+                        <div class="password-strength-bar"></div>
+                    </div>
+                    <div class="error-message">Password must be at least 8 characters</div>
+                </div>
+
+                <div class="form-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
+                    <div class="error-message">Passwords do not match</div>
+                </div>
+
+                <div class="terms">
+                    <input type="checkbox" id="terms" required>
+                    <label for="terms">
+                        I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
+                    </label>
+                </div>
+
+                <button type="submit" class="signup-button">Create Account</button>
+            </form>
+
+            <div class="login-link">
+                Already have an account? <a href="login.html">Login</a>
+            </div>
+
+            <div class="social-signup">
+                <p>Or sign up with</p>
+                <div class="social-icons">
+                    <button onclick="socialSignup('google')">
+                        <i class="fab fa-google"></i>
+                    </button>
+                    <button onclick="socialSignup('facebook')">
+                        <i class="fab fa-facebook"></i>
+                    </button>
+                    <button onclick="socialSignup('twitter')">
+                        <i class="fab fa-twitter"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function handleSignup(event) {
+            event.preventDefault();
+
+            const firstName = document.getElementById('firstName');
+            const lastName = document.getElementById('lastName');
+            const email = document.getElementById('email');
+            const password = document.getElementById('password');
+            const confirmPassword = document.getElementById('confirmPassword');
+            const terms = document.getElementById('terms');
+            let isValid = true;
+
+            // Validation checks
+            if (firstName.value.trim() === '') {
+                firstName.parentElement.classList.add('error');
+                isValid = false;
+            } else {
+                firstName.parentElement.classList.remove('error');
+            }
+
+            if (lastName.value.trim() === '') {
+                lastName.parentElement.classList.add('error');
+                isValid = false;
+            } else {
+                lastName.parentElement.classList.remove('error');
+            }
+
+            if (!isValidEmail(email.value)) {
+                email.parentElement.classList.add('error');
+                isValid = false;
+            } else {
+                email.parentElement.classList.remove('error');
+            }
+
+            if (password.value.length < 8) {
+                password.parentElement.classList.add('error');
+                isValid = false;
+            } else {
+                password.parentElement.classList.remove('error');
+            }
+
+            if (password.value !== confirmPassword.value) {
+                confirmPassword.parentElement.classList.add('error');
+                isValid = false;
+            } else {
+                confirmPassword.parentElement.classList.remove('error');
+            }
+
+            if (!terms.checked) {
+                terms.parentElement.classList.add('error');
+                isValid = false;
+            } else {
+                terms.parentElement.classList.remove('error');
+            }
+
+            if (!isValid) {
+                document.querySelector('.signup-button').classList.add('shake');
+                setTimeout(() => {
+                    document.querySelector('.signup-button').classList.remove('shake');
+                }, 500);
+                return false;
+            }
+
+            // Get existing users or initialize empty array
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+
+            // Check if email already exists
+            if (users.some(user => user.email === email.value)) {
+                alert('Email already registered');
+                return false;
+            }
+
+            // Create new user
+            const newUser = {
+                firstName: firstName.value,
+                lastName: lastName.value,
+                email: email.value,
+                password: password.value,
+                name: `${firstName.value} ${lastName.value}`,
+                photo: 'default-avatar.png'
+            };
+
+            // Add user to array and save to localStorage
+            users.push(newUser);
+            localStorage.setItem('users', JSON.stringify(users));
+
+            // Set current user session
+            localStorage.setItem('isLoggedIn', 'true');
+            localStorage.setItem('currentUser', JSON.stringify({
+                email: newUser.email,
+                name: newUser.name,
+                photo: newUser.photo
+            }));
+
+            // Redirect to home page
+            window.location.href = 'main2.html';
+            return false;
+        }
+
+        function isValidEmail(email) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+
+        function checkPasswordStrength(password) {
+            const strengthBar = document.querySelector('.password-strength-bar');
+            strengthBar.classList.remove('weak', 'medium', 'strong');
+
+            if (password.length === 0) {
+                strengthBar.style.width = '0';
+                return;
+            }
+
+            let strength = 0;
+            if (password.length >= 8) strength++;
+            if (password.match(/[a-z]/) && password.match(/[A-Z]/)) strength++;
+            if (password.match(/\d/) || password.match(/[^a-zA-Z\d]/)) strength++;
+
+            switch (strength) {
+                case 1:
+                    strengthBar.classList.add('weak');
+                    break;
+                case 2:
+                    strengthBar.classList.add('medium');
+                    break;
+                case 3:
+                    strengthBar.classList.add('strong');
+                    break;
+            }
+        }
+
+        function socialSignup(platform) {
+            // For demonstration, we'll create a mock social signup
+            const mockUsers = {
+                google: {
+                    name: 'Google User',
+                    email: 'google@example.com'
+                },
+                facebook: {
+                    name: 'Facebook User',
+                    email: 'facebook@example.com'
+                },
+                twitter: {
+                    name: 'Twitter User',
+                    email: 'twitter@example.com'
+                }
+            };
+
+            const user = mockUsers[platform];
+            localStorage.setItem('isLoggedIn', 'true');
+            localStorage.setItem('currentUser', JSON.stringify({
+                email: user.email,
+                name: user.name,
+                photo: 'default-avatar.png'
+            }));
+
+            window.location.href = 'main2.html';
+        }
+
+        // Check if user is already logged in
+        window.onload = function() {
+            if (localStorage.getItem('isLoggedIn') === 'true') {
+                window.location.href = 'main2.html';
+            }
+        }
+    </script>
+</body>
+
+</html>

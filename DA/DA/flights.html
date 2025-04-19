@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight Booking</title>
+    <link rel="stylesheet" href="flights.css">
+</head>
+<body>
+    <!-- Header -->
+    <header id="header">
+        <div class="site-info">Flight Booking</div>
+        <nav>
+            <a href="#" class="nav-button">
+                <img src="icon1.svg" alt="Icon 1">
+            </a>
+            <a href="#" class="nav-button">
+                <img src="icon2.svg" alt="Icon 2">
+            </a>
+        </nav>
+    </header>
+    
+    <div class="search-container">
+        <input type="text" placeholder="Search flights..." class="search-bar">
+        <button class="search-btn">
+            <img src="search-icon.svg" alt="Search" class="search-icon">
+        </button>
+        <div class="filters">
+            <button class="filter-btn">Filter</button>
+            <button class="sort-btn">Sort</button>
+        </div>
+    </div>
+    <div class="flight-cards">
+        <div class="flight-card">
+            <div class="flight-header">
+                <div class="airline-info">Airline Name</div>
+                <div class="flight-info"> 
+                    <img src="airplane-logo.svg" alt="Airplane Logo" class="airplane-logo">
+                    <span style="margin-left: 2px;">X1PZ</span>
+                </div> 
+            </div>
+            <div class="flight-details">
+                <div class="departure" style="margin-left: 25px;">
+                    <center>
+                        <div class="airport-code">XYZ</div>
+                        <span class="time">10:00 IST</span>
+                    </center>
+                </div>
+                <svg height="20px" width="100px" style="margin-right:20%"> <!-- Stops icon --> </svg>
+                <div class="arrival" style="margin-left: 25px;">
+                    <center>
+                        <div class="airport-code">XYZ</div>
+                        <span class="time">10:00 IST</span>
+                    </center>
+                </div>
+                <div class="flight-price">
+                    ₹ 5,000
+                </div>
+            </div>
+            <div class="flight-footer">
+                <div class="flight-date">2025-02-12</div>
+                <div class="flight-features">
+                    <svg class="feature-icon" height="inherit" width="30px" data-feature="seat-type"> <!-- Feature 1 icon --> </svg>
+                    <svg class="feature-icon" height="inherit" width="30px" data-feature="WIFI"> <!-- Feature 2 icon --> </svg>
+                </div>
+                <div class="popup" id="popup" style="display: none;">
+                </div>
+            </div>
+        </div>
+        <div class="flight-card">
+            <div class="flight-header">
+                <div class="airline-info">Airline Name</div>
+                <div class="flight-info"> 
+                    <img src="airplane-logo.svg" alt="Airplane Logo" class="airplane-logo">
+                    <span style="margin-left: 2px;">X1PZ</span>
+                </div> 
+            </div>
+            <div class="flight-details" style="border:1px solid">
+                <div class="departure" style="border:1px solid; margin-left: 25px;">
+                    <center>
+                        <div class="airport-code">XYZ</div>
+                        <span class="time">10:00 IST</span>
+                    </center>
+                </div>
+                <svg height="20px" width="100px" style="margin-right:20%"> <!-- Stops icon --> </svg>
+                <div class="arrival" style="border:1px solid; margin-left: 25px;">
+                    <center>
+                        <div class="airport-code" >XYZ</div>
+                        <span class="time">10:00 IST</span>
+                    </center>
+                </div>
+                <div class="flight-price"  style="border:1px solid">
+                    ₹ 5,000
+                </div>
+            </div>
+            <div class="flight-footer" style="border:1px solid">
+                <div class="flight-date" style="border:1px solid">2025-02-12</div>
+                <div class="flight-features">
+                    <svg class="feature-icon" height="inherit" width="30px" data-feature="seat-type"> <!-- Feature 1 icon --> </svg>
+                    <svg class="feature-icon" height="inherit" width="30px" data-feature="WIFI"> <!-- Feature 2 icon --> </svg>
+                </div>
+                <div class="popup" id="popup" style="display: none;">
+                </div>
+            </div>
+        </div>
+        <!-- Duplicate the card for another flight -->
+        <br><br><br><br><br><br><br><br><br><br>
+        <br><br><br><br><br><br><br><br><br><br>
+        <br><br><br><br><br><br><br><br><br><br>
+        <br><br><br><br><br><br><br><br><br><br>
+        <br><br><br><br><br><br><br><br><br><br>
+        <br><br><br><br><br><br><br><br><br><br>
+        lol
+    </div>
+
+    <script src="flights.js"></script>
+</body>
+</html>

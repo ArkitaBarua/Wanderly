@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New York - The City That Never Sleeps | Wanderly</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+        }
+        
+        .navbar {
+            display: flex;
+            align-items: center;
+            background-color: #5e9ced;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            justify-content: space-between;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo {
+            height: 40px;
+            margin-right: 10px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            margin-left: auto;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: #ffdd57;
+            transform: translateY(-2px);
+        }
+        
+        .hero {
+            height: 60vh;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('newyork-hero.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            padding-top: 70px;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero p {
+            font-size: 1.5rem;
+            max-width: 800px;
+            margin: 0 auto;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+        
+        .content {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        
+        .section {
+            margin-bottom: 60px;
+        }
+        
+        .section h2 {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .section p {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+        
+        .highlights {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .highlight-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .highlight-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .highlight-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .highlight-card .content {
+            padding: 20px;
+            margin: 0;
+        }
+        
+        .highlight-card h3 {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .highlight-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        .cta {
+            text-align: center;
+            padding: 60px 0;
+            background: linear-gradient(135deg, #5e9ced, #4a7fc7);
+            color: white;
+        }
+        
+        .cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 15px 30px;
+            background: white;
+            color: #5e9ced;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .cta-button:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="logo-container">
+            <img src="logo.png" alt="Wanderly Logo" class="logo">
+        </div>
+        <ul class="nav-links">
+            <li><a href="main2.html">Home</a></li>
+            <li><a href="Chennai.html">Travel</a></li>
+            <li><a href="flights.html">Flights</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="hero">
+        <div>
+            <h1>New York City</h1>
+            <p>The City That Never Sleeps</p>
+        </div>
+    </div>
+
+    <div class="content">
+        <section class="section">
+            <h2>About New York</h2>
+            <p>New York City, the cultural capital of the United States, is a vibrant metropolis that combines world-class entertainment, diverse cuisine, iconic architecture, and endless opportunities for adventure. From the bright lights of Times Square
+                to the serene paths of Central Park, NYC offers something for everyone.</p>
+        </section>
+
+        <section class="section">
+            <h2>Must-See Attractions</h2>
+            <div class="highlights">
+                <div class="highlight-card">
+                    <img src="times-square.jpg" alt="Times Square">
+                    <div class="content">
+                        <h3>Times Square</h3>
+                        <p>Experience the energy of the city at this iconic intersection, known for its bright lights and Broadway theaters.</p>
+                    </div>
+                </div>
+                <div class="highlight-card">
+                    <img src="central-park.jpg" alt="Central Park">
+                    <div class="content">
+                        <h3>Central Park</h3>
+                        <p>An urban oasis offering peaceful gardens, lakes, and recreational activities in the heart of Manhattan.</p>
+                    </div>
+                </div>
+                <div class="highlight-card">
+                    <img src="statue-liberty.jpg" alt="Statue of Liberty">
+                    <div class="content">
+                        <h3>Statue of Liberty</h3>
+                        <p>Visit this symbol of freedom and democracy on Liberty Island, with stunning views of the city skyline.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Local Experiences</h2>
+            <div class="highlights">
+                <div class="highlight-card">
+                    <img src="broadway.jpg" alt="Broadway Show">
+                    <div class="content">
+                        <h3>Broadway Shows</h3>
+                        <p>Experience world-class theater performances in the heart of the Theater District.</p>
+                    </div>
+                </div>
+                <div class="highlight-card">
+                    <img src="highline.jpg" alt="The High Line">
+                    <div class="content">
+                        <h3>The High Line</h3>
+                        <p>Walk along this elevated park built on a former railway line, featuring art installations and city views.</p>
+                    </div>
+                </div>
+                <div class="highlight-card">
+                    <img src="food-market.jpg" alt="Food Markets">
+                    <div class="content">
+                        <h3>Food Markets</h3>
+                        <p>Explore diverse culinary experiences at Chelsea Market, Smorgasburg, and other food destinations.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <section class="cta">
+        <h2>Ready to Experience New York?</h2>
+        <p style="margin-bottom: 30px;">Book your adventure in the Big Apple today!</p>
+        <a href="flights.html" class="cta-button">Book Now</a>
+    </section>
+
+    <script>
+        // Check authentication state
+        function checkAuthState() {
+            const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+            const authButton = document.getElementById('authButton');
+            const userProfile = document.getElementById('userProfile');
+            const userName = document.getElementById('userName');
+            const userPhoto = document.getElementById('userPhoto');
+
+            if (isLoggedIn) {
+                authButton.style.display = 'none';
+                userProfile.style.display = 'block';
+                userName.textContent = localStorage.getItem('userName') || 'User';
+                userPhoto.src = localStorage.getItem('userPhoto') || 'default-avatar.png';
+            } else {
+                authButton.style.display = 'block';
+                userProfile.style.display = 'none';
+            }
+        }
+
+        // Check auth state on page load
+        window.onload = function() {
+            checkAuthState();
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barcelona - Heart of Catalonia | Wanderly</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+        }
+        
+        .navbar {
+            display: flex;
+            align-items: center;
+            background-color: #5e9ced;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            justify-content: space-between;
+        }
+        
+        .hero {
+            height: 60vh;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('barcelona-hero.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            padding-top: 70px;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero p {
+            font-size: 1.5rem;
+            max-width: 800px;
+            margin: 0 auto;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+        
+        .content {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        
+        .section {
+            margin-bottom: 60px;
+        }
+        
+        .section h2 {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .highlights {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .highlight-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .highlight-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .highlight-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .highlight-card .content {
+            padding: 20px;
+            margin: 0;
+        }
+        
+        .highlight-card h3 {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .highlight-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        .cta {
+            text-align: center;
+            padding: 60px 0;
+            background: linear-gradient(135deg, #5e9ced, #4a7fc7);
+            color: white;
+        }
+        
+        .cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 15px 30px;
+            background: white;
+            color: #5e9ced;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .cta-button:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <!-- Logo on the Left -->
+        <div style="display: flex; align-items: center; flex-shrink: 0;">
+            <div><img src="logo.png" style="height: 40px; width: 40px; border-radius: 50%; margin-right: 10px;"></div>
+            <span><img style="width:100px; height:auto;" src="wanderly.png"></span>
+        </div>
+
+        <!-- Navigation Links -->
+        <div style="display: flex; gap: 2rem; flex-grow: 1; justify-content: center;">
+            <a href="main2.html" style="color: white; text-decoration: none; font-weight: 500; transition: all 0.3s ease;">HOME</a>
+            <a href="Chennai.html" style="color: white; text-decoration: none; font-weight: 500; transition: all 0.3s ease;">TRAVEL</a>
+            <a href="flights.html" style="color: white; text-decoration: none; font-weight: 500; transition: all 0.3s ease;">FLIGHTS</a>
+            <a href="#" style="color: white; text-decoration: none; font-weight: 500; transition: all 0.3s ease;">CONTACT</a>
+        </div>
+
+        <!-- Login/Signup Button -->
+        <div style="flex-shrink: 0;">
+            <div id="authButton">
+                <a href="signup.html"><button style="background-color: white; color: #1a73e8; border: none; padding: 10px 15px; border-radius: 4px; font-size: 14px; cursor: pointer; transition: background-color 0.3s ease; font-weight: bold;">
+                    Login / Signup
+                </button></a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="hero">
+        <div>
+            <h1>Barcelona, Spain</h1>
+            <p>Where Art Meets Architecture</p>
+        </div>
+    </div>
+
+    <div class="content">
+        <section class="section">
+            <h2>About Barcelona</h2>
+            <p>Barcelona, the vibrant capital of Catalonia, is a city where historic charm meets modern innovation. Known for its stunning architecture, world-class cuisine, and Mediterranean lifestyle, Barcelona offers visitors an unforgettable blend of
+                culture, art, and seaside relaxation.</p>
+        </section>
+
+        <section class="section">
+            <h2>Must-See Attractions</h2>
+            <div class="highlights">
+                <div class="highlight-card">
+                    <img src="sagrada-familia.jpg" alt="Sagrada Familia">
+                    <div class="content">
+                        <h3>Sagrada Familia</h3>
+                        <p>Gaudí's masterpiece and Barcelona's most iconic landmark, this stunning basilica has been under construction since 1882.</p>
+                    </div>
+                </div>
+                <div class="highlight-card">
+                    <img src="park-guell.jpg" alt="Park Güell">
+                    <div class="content">
+                        <h3>Park Güell</h3>
+                        <p>A whimsical public park featuring amazing stone structures, tiled mosaics, and stunning city views.</p>
+                    </div>
+                </div>
+                <div class="highlight-card">
+                    <img src="las-ramblas.jpg" alt="Las Ramblas">
+                    <div class="content">
+                        <h3>Las Ramblas</h3>
+                        <p>Barcelona's most famous street, lined with trees, street performers, cafes, and markets.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Local Experiences</h2>
+            <div class="highlights">
+                <div class="highlight-card">
+                    <img src="tapas.jpg" alt="Tapas">
+                    <div class="content">
+                        <h3>Tapas Culture</h3>
+                        <p>Experience the Spanish tradition of tapas hopping in the Gothic Quarter's charming alleys.</p>
+                    </div>
+                </div>
+                <div class="highlight-card">
+                    <img src="barceloneta.jpg" alt="Barceloneta Beach">
+                    <div class="content">
+                        <h3>Barceloneta Beach</h3>
+                        <p>Enjoy the Mediterranean lifestyle at this vibrant urban beach lined with restaurants and bars.</p>
+                    </div>
+                </div>
+                <div class="highlight-card">
+                    <img src="boqueria.jpg" alt="La Boqueria Market">
+                    <div class="content">
+                        <h3>La Boqueria Market</h3>
+                        <p>Explore one of Europe's largest and most famous food markets, dating back to 1217.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <section class="cta">
+        <h2>Ready to Experience Barcelona?</h2>
+        <p style="margin-bottom: 30px;">Book your Mediterranean adventure today!</p>
+        <a href="flights.html" class="cta-button">Book Now</a>
+    </section>
+
+    <script>
+        // Check authentication state
+        function checkAuthState() {
+            const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+            const authButton = document.getElementById('authButton');
+            const userProfile = document.getElementById('userProfile');
+            const userName = document.getElementById('userName');
+            const userPhoto = document.getElementById('userPhoto');
+
+            if (isLoggedIn) {
+                authButton.style.display = 'none';
+                userProfile.style.display = 'block';
+                userName.textContent = localStorage.getItem('userName') || 'User';
+                userPhoto.src = localStorage.getItem('userPhoto') || 'default-avatar.png';
+            } else {
+                authButton.style.display = 'block';
+                userProfile.style.display = 'none';
+            }
+        }
+
+        // Check auth state on page load
+        window.onload = function() {
+            checkAuthState();
+        }
+    </script>
+</body>
+
+</html>

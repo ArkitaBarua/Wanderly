@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wanderly</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">Wanderly</div>
+        <ul class="nav-links">
+            <li><a href="#">HOME</a></li>
+            <li><a href="#">ABOUT</a></li>
+            <li><a href="#">SERVICES</a></li>
+            <li><a href="#">CONTACT</a></li>
+            <li><a href="#">BLOG</a></li>
+        </ul>
+    </nav>
+
+    <!-- Welcome Section -->
+    <section class="welcome">
+        <h1>Welcome to Wanderly</h1>
+        <p>Explore the world's best travel destinations with us!</p>
+    </section>
+
+    <!-- Trending Places Section -->
+    <section class="trending-places">
+        <h2>Trending Places</h2>
+        <div class="scroll-container">
+            <button class="scroll-btn left-btn" onclick="scrollLeft()">&#10094;</button>
+            <div class="places-wrapper" id="placesWrapper">
+                <div class="place-card">
+                    <h3>Paris, France</h3>
+                    <img src="paris.jpg" alt="Paris">
+                    <p>The city of love and lights, Paris is known for its art, culture, and the iconic Eiffel Tower.</p>
+                    <a href="#">Read More</a>
+                </div>
+                <div class="place-card">
+                    <h3>Kyoto, Japan</h3>
+                    <img src="kyoto.jpg" alt="Kyoto">
+                    <p>A beautiful blend of tradition and modernity, Kyoto is famous for its temples and cherry blossoms.</p>
+                    <a href="#">Read More</a>
+                </div>
+                <div class="place-card">
+                    <h3>New York, USA</h3>
+                    <img src="newyork.jpg" alt="New York">
+                    <p>Experience the hustle and bustle of Times Square and the serenity of Central Park in NYC.</p>
+                    <a href="#">Read More</a>
+                </div>
+                <div class="place-card">
+                    <h3>Bali, Indonesia</h3>
+                    <img src="bali.jpg" alt="Bali">
+                    <p>A paradise of beaches, temples, and lush greenery, perfect for relaxation and adventure.</p>
+                    <a href="#">Read More</a>
+                </div>
+            </div>
+            <button class="scroll-btn right-btn" onclick="scrollRight()">&#10095;</button>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section class="map-container">
+        <center>
+            <img src="india.png" alt="India map" usemap="#indiamap">
+            <map name="indiamap">
+                <area shape="poly" coords="190,798,198,822,217,853,229,888,230,910,245,936,257,947,262,940,261,926,266,906,260,901,263,883,259,878,253,881,248,876,248,869,250,862,243,859,247,855,239,849,238,843,230,839,237,834,234,827,219,824,206,815,201,804"
+                    alt="Kerala" title="Kerala" href="kerala.html">
+                <area shape="poly" coords="258,948,270,955,286,947,291,929,297,922,321,917,316,909,326,893,327,883,345,880,347,847,343,838,363,792,364,776,355,773,347,781,334,780,325,789,309,790,299,802,282,795,274,803,268,814,278,817,275,824,266,827,252,830,248,836,239,831,231,837,237,841,238,847,248,853,245,858,251,860,249,875,253,879,259,876,264,881,261,899,268,904,262,924,263,937"
+                    alt="Tamil Nadu" title="Tamil Nadu" href="TN.html">
+                <area shape="poly" coords="190,798,217,824,236,834,249,835,279,822,271,816,280,798,295,799,305,785,285,763,259,768,253,756,268,755,248,738,251,725,261,726,263,718,256,711,263,694,272,694,274,683,272,657,279,643,272,639,275,618,268,614,241,643,224,649,217,648,211,658,196,659,174,672,179,685,171,700,166,730,183,761,181,783"
+                    alt="Karnataka" title="Karnataka" href="karn.html">
+                <area shape="poly" coords="273,693,264,691,257,708,262,716,248,736,260,748,268,756,253,755,268,764,290,761,305,783,297,800,305,802,311,789,355,773,354,717,368,696,382,697,393,680,426,672,425,659,500,588,458,593,451,612,428,610,419,625,380,636,393,650,369,663,317,690" 
+                    alt="Andhra Pradesh" title="Andhra Pradesh" href="AP.html">
+                </map>
+        </center>
+    </section>
+
+    <script>
+        function scrollLeft() {
+            document.getElementById('placesWrapper').scrollBy({
+                left: -250,
+                behavior: 'smooth'
+            });
+        }
+
+        function scrollRight() {
+            document.getElementById('placesWrapper').scrollBy({
+                left: 250,
+                behavior: 'smooth'
+            });
+        }
+    </script>
+
+</body>
+
+</html>
