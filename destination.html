@@ -44,6 +44,7 @@
             text-align: center;
             padding-top: 70px;
             position: relative;
+            overflow: hidden;
         }
         
         .hero::before {
@@ -53,12 +54,15 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7));
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6));
+            z-index: 1;
         }
         
         .hero-content {
             position: relative;
-            z-index: 1;
+            z-index: 2;
+            max-width: 800px;
+            padding: 0 20px;
         }
         
         .hero h1 {
@@ -70,7 +74,6 @@
         
         .hero p {
             font-size: 1.8rem;
-            max-width: 800px;
             margin: 0 auto;
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
             animation: fadeInUp 1.2s ease;
@@ -542,237 +545,236 @@
     </div>
 
     <script>
-        // City data object containing information for each destination
+        // City data configuration
         const cityData = {
             paris: {
                 title: "Paris, France",
-                tagline: "City of Love",
-                heroImage: "paris-hero.jpg",
-                about: "Paris, the capital of France, is renowned worldwide for its art, culture, fashion, and gastronomy. From the iconic Eiffel Tower to the historic Notre-Dame Cathedral, every corner of Paris tells a story of romance, history, and artistic excellence.",
+                tagline: "Experience the magic of the City of Light",
+                heroImage: 'paris.gif',
                 info: {
                     population: "2.2 million",
                     language: "French",
                     currency: "Euro (€)",
-                    timezone: "UTC+1"
+                    timezone: "CET (UTC+1)"
                 },
+                about: "Paris, the capital of France, is renowned worldwide for its art, culture, fashion, and gastronomy. From the iconic Eiffel Tower to the historic Notre-Dame Cathedral, every corner of Paris tells a story of romance, history, and artistic excellence.",
                 attractions: [{
                     name: "Eiffel Tower",
-                    image: "eiffel.jpg",
-                    description: "The most iconic symbol of Paris, offering breathtaking views of the city from its observation decks."
+                    description: "The most iconic symbol of Paris, offering breathtaking views of the city.",
+                    image: "eiffel.jpg"
                 }, {
                     name: "Louvre Museum",
-                    image: "louvre.jpg",
-                    description: "Home to thousands of works of art, including the famous Mona Lisa and Venus de Milo."
+                    description: "Home to thousands of works of art, including the famous Mona Lisa.",
+                    image: "louvre.jpg"
                 }, {
                     name: "Notre-Dame Cathedral",
-                    image: "notre-dame.jpg",
-                    description: "A masterpiece of French Gothic architecture, currently being restored to its former glory."
+                    description: "A masterpiece of French Gothic architecture.",
+                    image: "notre-dame.jpg"
                 }],
                 experiences: [{
-                    name: "Café Culture",
-                    image: "cafe.jpg",
-                    description: "Experience the charm of Parisian cafés while enjoying fresh croissants and coffee."
-                }, {
-                    name: "Montmartre",
-                    image: "montmartre.jpg",
-                    description: "Explore the artistic neighborhood known for its bohemian history and stunning Sacré-Cœur Basilica."
+                    name: "Parisian Cafés",
+                    description: "Experience the charm of authentic French café culture.",
+                    image: "cafe.jpg"
                 }, {
                     name: "Seine River Cruise",
-                    image: "seine.jpg",
-                    description: "Take a romantic boat ride along the Seine to see Paris's magnificent architecture from the water."
+                    description: "See Paris from a different perspective on a river cruise.",
+                    image: "seine.jpg"
+                }, {
+                    name: "Montmartre",
+                    description: "Explore the artistic heart of Paris.",
+                    image: "montmartre.jpg"
                 }]
             },
             newyork: {
-                title: "New York, USA",
+                title: "New York City, USA",
                 tagline: "The City That Never Sleeps",
-                heroImage: "newyork-hero.jpg",
-                about: "New York City, a global hub of culture, finance, and entertainment, is a city of endless possibilities. From the bright lights of Times Square to the serene paths of Central Park, NYC offers an unparalleled urban experience with world-class museums, diverse neighborhoods, and iconic landmarks.",
+                heroImage: 'newyork.gif',
                 info: {
                     population: "8.4 million",
                     language: "English",
                     currency: "US Dollar ($)",
-                    timezone: "UTC-5"
+                    timezone: "EST (UTC-5)"
                 },
+                about: "New York City is a global metropolis known for its iconic skyline, diverse culture, and endless opportunities for entertainment, dining, and shopping.",
                 attractions: [{
                     name: "Times Square",
-                    image: "times-square.jpg",
-                    description: "The world's most famous intersection, known for its bright lights, Broadway theaters, and endless energy."
+                    description: "The bright lights and energy of NYC's most famous intersection.",
+                    image: "times-square.jpg"
                 }, {
                     name: "Central Park",
-                    image: "central-park.jpg",
-                    description: "An urban oasis spanning 843 acres, featuring lakes, gardens, and countless recreational activities."
+                    description: "An oasis of green in the heart of Manhattan.",
+                    image: "central-park.jpg"
                 }, {
-                    name: "Empire State Building",
-                    image: "empire-state.jpg",
-                    description: "An iconic Art Deco skyscraper offering breathtaking views of the Manhattan skyline."
+                    name: "Statue of Liberty",
+                    description: "America's most iconic symbol of freedom.",
+                    image: "liberty.jpg"
                 }],
                 experiences: [{
-                    name: "Broadway Show",
-                    image: "broadway.jpg",
-                    description: "Experience world-class theater performances in the heart of the Theater District."
+                    name: "Broadway Shows",
+                    description: "Experience world-class theater performances.",
+                    image: "broadway.jpg"
                 }, {
                     name: "Food Tours",
-                    image: "nyc-food.jpg",
-                    description: "Explore diverse neighborhoods and their unique culinary offerings, from pizza to dim sum."
+                    description: "Taste the diverse culinary offerings of NYC.",
+                    image: "food-tour.jpg"
                 }, {
-                    name: "Museum Mile",
-                    image: "museum-mile.jpg",
-                    description: "Visit world-renowned museums along Fifth Avenue, including the Metropolitan Museum of Art."
+                    name: "Museum Visits",
+                    description: "Explore world-renowned museums and galleries.",
+                    image: "museum.jpg"
                 }]
             },
             bali: {
                 title: "Bali, Indonesia",
-                tagline: "Island of the Gods",
-                heroImage: "bali-hero.jpg",
-                about: "Bali, an Indonesian paradise, combines spiritual tranquility with natural beauty. Known for its forested volcanic mountains, iconic rice paddies, beaches, and coral reefs, Bali's rich culture and warm hospitality make it a perfect tropical getaway.",
+                tagline: "Paradise on Earth",
+                heroImage: 'bali.gif',
                 info: {
                     population: "4.3 million",
                     language: "Indonesian, Balinese",
-                    currency: "Indonesian Rupiah (Rp)",
-                    timezone: "UTC+8"
+                    currency: "Indonesian Rupiah (IDR)",
+                    timezone: "WITA (UTC+8)"
                 },
+                about: "Bali is a tropical paradise known for its lush landscapes, pristine beaches, rich culture, and spiritual atmosphere. From ancient temples to vibrant coral reefs, it offers a unique blend of natural beauty and cultural heritage.",
                 attractions: [{
                     name: "Tanah Lot Temple",
-                    image: "tanah-lot.jpg",
-                    description: "An ancient Hindu temple perched on a rocky outcrop in the sea, famous for its sunset views."
+                    description: "Ancient sea temple perched on a rocky outcrop.",
+                    image: "tanah-lot.jpg"
                 }, {
-                    name: "Ubud Rice Terraces",
-                    image: "rice-terraces.jpg",
-                    description: "Stunning emerald-green rice paddies arranged on terraced levels, a testament to Bali's agricultural heritage."
+                    name: "Ubud Monkey Forest",
+                    description: "Sacred forest home to hundreds of monkeys and ancient temples.",
+                    image: "monkey-forest.jpg"
                 }, {
-                    name: "Uluwatu Temple",
-                    image: "uluwatu.jpg",
-                    description: "A magnificent clifftop temple known for its traditional Kecak fire dance performances at sunset."
+                    name: "Rice Terraces",
+                    description: "Stunning terraced rice fields in Tegalalang.",
+                    image: "rice-terraces.jpg"
                 }],
                 experiences: [{
-                    name: "Balinese Cooking Class",
-                    image: "cooking-class.jpg",
-                    description: "Learn to prepare traditional Balinese dishes using local ingredients and techniques."
+                    name: "Yoga Retreats",
+                    description: "Find inner peace at world-class yoga retreats.",
+                    image: "yoga.jpg"
                 }, {
-                    name: "Yoga Retreat",
-                    image: "yoga-retreat.jpg",
-                    description: "Practice yoga and meditation in serene settings surrounded by nature."
+                    name: "Surfing",
+                    description: "Catch waves at famous surf spots.",
+                    image: "surfing.jpg"
                 }, {
-                    name: "Traditional Spa",
-                    image: "spa-treatment.jpg",
-                    description: "Experience authentic Balinese healing treatments and relaxation techniques."
+                    name: "Temple Tours",
+                    description: "Explore ancient Balinese temples and culture.",
+                    image: "temples.jpg"
                 }]
             },
             capetown: {
                 title: "Cape Town, South Africa",
-                tagline: "Where Mountains Meet the Sea",
-                heroImage: "capetown-hero.jpg",
-                about: "Cape Town, nestled between Table Mountain and the Atlantic Ocean, is a city of stunning natural beauty and rich cultural heritage. From world-class wineries to pristine beaches, and historic sites to vibrant neighborhoods, the Mother City offers an unforgettable African experience.",
+                tagline: "Where Mountains Meet the Ocean",
+                heroImage: 'capetown.gif',
                 info: {
                     population: "4.6 million",
                     language: "English, Afrikaans, Xhosa",
                     currency: "South African Rand (R)",
-                    timezone: "UTC+2"
+                    timezone: "SAST (UTC+2)"
                 },
+                about: "Cape Town is a stunning coastal city where natural beauty meets rich history and vibrant culture. Nestled between Table Mountain and the Atlantic Ocean, it offers breathtaking landscapes and diverse experiences.",
                 attractions: [{
                     name: "Table Mountain",
-                    image: "table-mountain.jpg",
-                    description: "An iconic flat-topped mountain offering panoramic views of the city and ocean."
+                    description: "Iconic flat-topped mountain offering panoramic views.",
+                    image: "table-mountain.jpg"
                 }, {
                     name: "Robben Island",
-                    image: "robben-island.jpg",
-                    description: "Historic prison island where Nelson Mandela was held, now a powerful museum."
+                    description: "Historic prison island where Nelson Mandela was held.",
+                    image: "robben-island.jpg"
                 }, {
                     name: "V&A Waterfront",
-                    image: "waterfront.jpg",
-                    description: "A vibrant harbor with shopping, dining, and entertainment against a mountain backdrop."
+                    description: "Vibrant harbor with shopping, dining, and entertainment.",
+                    image: "waterfront.jpg"
                 }],
                 experiences: [{
                     name: "Wine Tasting",
-                    image: "wine-tasting.jpg",
-                    description: "Tour the Cape Winelands and sample world-class wines in historic estates."
+                    description: "Experience the Cape Winelands' world-class vineyards.",
+                    image: "wine-tasting.jpg"
                 }, {
-                    name: "Township Tour",
-                    image: "township-tour.jpg",
-                    description: "Experience local culture and community life in Cape Town's townships."
+                    name: "Beach Life",
+                    description: "Relax on pristine beaches with stunning mountain views.",
+                    image: "beaches.jpg"
                 }, {
-                    name: "Penguin Beach",
-                    image: "boulders-beach.jpg",
-                    description: "Visit the famous African penguin colony at Boulders Beach."
-                }]
-            },
-            kyoto: {
-                title: "Kyoto, Japan",
-                tagline: "Where Tradition Meets Serenity",
-                heroImage: "kyoto-hero.jpg",
-                about: "Kyoto, the former imperial capital of Japan, is a city where ancient traditions and modern life exist in perfect harmony. With its countless temples, traditional gardens, and preserved historic districts, Kyoto offers visitors a glimpse into Japan's rich cultural heritage.",
-                info: {
-                    population: "1.5 million",
-                    language: "Japanese",
-                    currency: "Japanese Yen (¥)",
-                    timezone: "UTC+9"
-                },
-                attractions: [{
-                    name: "Kinkaku-ji",
-                    image: "kinkakuji.jpg",
-                    description: "The Golden Pavilion, a Zen temple covered in gold leaf, set in a stunning traditional garden."
-                }, {
-                    name: "Fushimi Inari Shrine",
-                    image: "fushimi-inari.jpg",
-                    description: "Famous for its thousands of vermillion torii gates winding through the mountainside."
-                }, {
-                    name: "Arashiyama Bamboo Grove",
-                    image: "bamboo-grove.jpg",
-                    description: "A mesmerizing pathway through towering bamboo forests, offering a peaceful escape."
-                }],
-                experiences: [{
-                    name: "Tea Ceremony",
-                    image: "tea-ceremony.jpg",
-                    description: "Experience the traditional Japanese tea ceremony in an authentic setting."
-                }, {
-                    name: "Geisha District",
-                    image: "gion.jpg",
-                    description: "Explore the historic Gion district, where geishas still practice ancient arts."
-                }, {
-                    name: "Temple Stay",
-                    image: "temple-stay.jpg",
-                    description: "Immerse yourself in Buddhist culture with a stay at a traditional temple."
+                    name: "Cultural Tours",
+                    description: "Explore the rich history and diverse culture.",
+                    image: "cultural-tour.jpg"
                 }]
             },
             barcelona: {
                 title: "Barcelona, Spain",
-                tagline: "Where Art Meets Architecture",
-                heroImage: "barcelona-hero.jpg",
-                about: "Barcelona, the vibrant capital of Catalonia, is a city where historic charm meets modern innovation. Known for its stunning architecture, world-class cuisine, and Mediterranean lifestyle, Barcelona offers visitors an unforgettable blend of culture, art, and seaside relaxation.",
+                tagline: "A City of Art and Architecture",
+                heroImage: 'barcelona.gif',
                 info: {
                     population: "1.6 million",
                     language: "Spanish, Catalan",
                     currency: "Euro (€)",
-                    timezone: "UTC+1"
+                    timezone: "CET (UTC+1)"
                 },
+                about: "Barcelona is a vibrant city known for its unique architecture, rich culture, and Mediterranean lifestyle. From Gaudi's masterpieces to bustling Las Ramblas, it offers an unforgettable blend of history and modernity.",
                 attractions: [{
                     name: "Sagrada Familia",
-                    image: "sagrada-familia.jpg",
-                    description: "Gaudí's masterpiece and Barcelona's most iconic landmark, this stunning basilica has been under construction since 1882."
+                    description: "Gaudi's iconic unfinished basilica.",
+                    image: "sagrada-familia.jpg"
                 }, {
                     name: "Park Güell",
-                    image: "park-guell.jpg",
-                    description: "A whimsical public park featuring amazing stone structures, tiled mosaics, and stunning city views."
+                    description: "Whimsical park featuring Gaudi's creative architecture.",
+                    image: "park-guell.jpg"
                 }, {
-                    name: "Las Ramblas",
-                    image: "las-ramblas.jpg",
-                    description: "Barcelona's most famous street, lined with trees, street performers, cafes, and markets."
+                    name: "Gothic Quarter",
+                    description: "Historic district with medieval architecture.",
+                    image: "gothic-quarter.jpg"
                 }],
                 experiences: [{
-                    name: "Tapas Culture",
-                    image: "tapas.jpg",
-                    description: "Experience the Spanish tradition of tapas hopping in the Gothic Quarter's charming alleys."
+                    name: "Tapas Tours",
+                    description: "Sample traditional Spanish tapas and wines.",
+                    image: "tapas.jpg"
                 }, {
-                    name: "Barceloneta Beach",
-                    image: "barceloneta.jpg",
-                    description: "Enjoy the Mediterranean lifestyle at this vibrant urban beach lined with restaurants and bars."
+                    name: "Beach Activities",
+                    description: "Enjoy Mediterranean beaches and water sports.",
+                    image: "barcelona-beach.jpg"
                 }, {
-                    name: "La Boqueria Market",
-                    image: "boqueria.jpg",
-                    description: "Explore one of Europe's largest and most famous food markets, dating back to 1217."
+                    name: "Art Museums",
+                    description: "Explore world-class art collections.",
+                    image: "museums.jpg"
                 }]
             },
-            // Add similar data for other cities (newyork, bali, capetown, kyoto)
+            tokyo: {
+                title: "Tokyo, Japan",
+                tagline: "Where Tradition Meets Innovation",
+                heroImage: 'kyoto.gif',
+                info: {
+                    population: "37 million",
+                    language: "Japanese",
+                    currency: "Japanese Yen (¥)",
+                    timezone: "JST (UTC+9)"
+                },
+                about: "Tokyo is a dynamic metropolis that seamlessly blends ultramodern technology with traditional culture. From ancient temples to futuristic skyscrapers, it offers an incredible array of experiences.",
+                attractions: [{
+                    name: "Senso-ji Temple",
+                    description: "Tokyo's oldest Buddhist temple.",
+                    image: "sensoji.jpg"
+                }, {
+                    name: "Shibuya Crossing",
+                    description: "World's busiest pedestrian crossing.",
+                    image: "shibuya.jpg"
+                }, {
+                    name: "Tokyo Skytree",
+                    description: "Tallest structure in Japan with observation decks.",
+                    image: "skytree.jpg"
+                }],
+                experiences: [{
+                    name: "Food Tours",
+                    description: "Explore Japan's incredible culinary scene.",
+                    image: "food.jpg"
+                }, {
+                    name: "Tea Ceremonies",
+                    description: "Experience traditional Japanese tea culture.",
+                    image: "tea.jpg"
+                }, {
+                    name: "Technology Districts",
+                    description: "Discover the latest in Japanese innovation.",
+                    image: "akihabara.jpg"
+                }]
+            }
         };
 
         // Function to get URL parameters
@@ -827,6 +829,9 @@
 
         // Function to create blog HTML with truncated content
         function createBlogHTML(blog) {
+            // Ensure blog.images exists and is an array
+            const images = Array.isArray(blog.images) ? blog.images : [];
+
             const truncatedContent = blog.content.length > 150 ?
                 blog.content.substring(0, 150) + '...' :
                 blog.content;
@@ -846,11 +851,11 @@
             return `
                 <div class="blog-card" data-id="${blog.id}">
                     <div class="blog-image">
-                        <img src="${blog.images[0] || 'default-blog.jpg'}" alt="${blog.title}">
+                        <img src="${images.length > 0 ? images[0] : 'default-blog.jpg'}" alt="${blog.title}">
                     </div>
                     <div class="blog-content">
                         <div class="blog-meta">
-                            <span><i class="fas fa-user"></i> ${blog.author}</span>
+                            <span><i class="fas fa-user"></i> ${blog.author || 'Anonymous'}</span>
                             <span><i class="fas fa-calendar"></i> ${formatDate(blog.date)}</span>
                         </div>
                         <h3>${blog.title}</h3>
@@ -872,19 +877,24 @@
 
             if (!blog) return;
 
-            const photosHTML = blog.images.map(img => `
+            // Ensure blog.images exists and is an array
+            const images = Array.isArray(blog.images) ? blog.images : [];
+
+            const photosHTML = images.map(img => `
                 <img src="${img}" alt="Blog photo" onclick="openImageModal('${img}')">
             `).join('');
 
             const fullBlogHTML = `
                 <h2>${blog.title}</h2>
                 <div class="blog-meta">
-                    <span><i class="fas fa-user"></i> ${blog.author}</span>
+                    <span><i class="fas fa-user"></i> ${blog.author || 'Anonymous'}</span>
                     <span><i class="fas fa-calendar"></i> ${formatDate(blog.date)}</span>
                 </div>
+                ${images.length > 0 ? `
                 <div class="blog-photos">
                     ${photosHTML}
                 </div>
+                ` : ''}
                 <p style="white-space: pre-line;">${blog.content}</p>
             `;
 
@@ -1003,22 +1013,22 @@
                     <div class="info-item">
                         <i class="fas fa-users"></i>
                         <h3>Population</h3>
-                        <p>${data.info.population}</p>
+                        <p>${data.info?.population || 'N/A'}</p>
                     </div>
                     <div class="info-item">
                         <i class="fas fa-language"></i>
                         <h3>Language</h3>
-                        <p>${data.info.language}</p>
+                        <p>${data.info?.language || 'N/A'}</p>
                     </div>
                     <div class="info-item">
                         <i class="fas fa-money-bill-wave"></i>
                         <h3>Currency</h3>
-                        <p>${data.info.currency}</p>
+                        <p>${data.info?.currency || 'N/A'}</p>
                     </div>
                     <div class="info-item">
                         <i class="fas fa-clock"></i>
                         <h3>Time Zone</h3>
-                        <p>${data.info.timezone}</p>
+                        <p>${data.info?.timezone || 'N/A'}</p>
                     </div>
                 </div>
 

@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | Wanderly</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            min-height: 100vh;
+            padding-top: 70px;
+        }
+        
+        .navbar {
+            display: flex;
+            align-items: center;
+            background-color: #5e9ced;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            justify-content: space-between;
+        }
+        
+        .contact-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        
+        .contact-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .contact-header h1 {
+            font-size: 3rem;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        
+        .contact-header p {
+            color: #666;
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .contact-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+        
+        .contact-form {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .contact-info {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #5e9ced;
+        }
+        
+        .submit-btn {
+            background: #5e9ced;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        
+        .submit-btn:hover {
+            background: #4a7fc7;
+            transform: translateY(-2px);
+        }
+        
+        .contact-info h3 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+        
+        .contact-details {
+            list-style: none;
+        }
+        
+        .contact-details li {
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .contact-details i {
+            width: 40px;
+            height: 40px;
+            background: #5e9ced;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 1.2rem;
+        }
+        
+        .social-links {
+            margin-top: 30px;
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: #5e9ced;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background: #4a7fc7;
+            transform: translateY(-3px);
+        }
+        
+        .success-message {
+            display: none;
+            background: #4CAF50;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            text-align: center;
+        }
+        
+        @media (max-width: 768px) {
+            .contact-content {
+                grid-template-columns: 1fr;
+            }
+            .contact-header h1 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <!-- Logo on the Left -->
+        <div style="display: flex; align-items: center; flex-shrink: 0;">
+            <div><img src="logo.png" style="height: 40px; width: 40px; border-radius: 50%; margin-right: 10px;"></div>
+            <span><img style="width:100px; height:auto;" src="wanderly.png"></span>
+        </div>
+
+        <!-- Navigation Links -->
+        <div style="display: flex; gap: 2rem; flex-grow: 1; justify-content: center;">
+            <a href="main2.html" style="color: white; text-decoration: none; font-weight: 500; transition: all 0.3s ease;">HOME</a>
+            <a href="Chennai.html" style="color: white; text-decoration: none; font-weight: 500; transition: all 0.3s ease;">TRAVEL</a>
+            <a href="flights.html" style="color: white; text-decoration: none; font-weight: 500; transition: all 0.3s ease;">FLIGHTS</a>
+            <a href="contact.html" style="color: white; text-decoration: none; font-weight: 500; transition: all 0.3s ease;">CONTACT</a>
+        </div>
+
+        <!-- Login/Signup Button -->
+        <div style="flex-shrink: 0;">
+            <div id="authButton">
+                <a href="signup.html"><button style="background-color: white; color: #1a73e8; border: none; padding: 10px 15px; border-radius: 4px; font-size: 14px; cursor: pointer; transition: background-color 0.3s ease; font-weight: bold;">
+                    Login / Signup
+                </button></a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="contact-container">
+        <div class="contact-header">
+            <h1>Get in Touch</h1>
+            <p>Have questions about your travel plans? We'd love to help! Reach out to us through any of the following ways.</p>
+        </div>
+
+        <div class="contact-content">
+            <div class="contact-form">
+                <h3>Send us a Message</h3>
+                <form id="contactForm" onsubmit="return handleSubmit(event)">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" id="subject" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Send Message</button>
+                </form>
+                <div id="successMessage" class="success-message">
+                    Thank you for your message! We'll get back to you soon.
+                </div>
+            </div>
+
+            <div class="contact-info">
+                <h3>Contact Information</h3>
+                <ul class="contact-details">
+                    <li>
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h4>Address</h4>
+                            <p>123 Travel Street, Wanderly Tower<br>Chennai, Tamil Nadu 600127</p>
+                        </div>
+                    </li>
+                    <li>
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h4>Phone</h4>
+                            <p>+91 123 456 7890</p>
+                        </div>
+                    </li>
+                    <li>
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h4>Email</h4>
+                            <p>info@wanderly.com</p>
+                        </div>
+                    </li>
+                    <li>
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <h4>Working Hours</h4>
+                            <p>Mon - Fri: 9:00 AM - 6:00 PM</p>
+                        </div>
+                    </li>
+                </ul>
+
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function handleSubmit(event) {
+            event.preventDefault();
+
+            // Get form values
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+
+            // Here you would typically send this data to your server
+            console.log({
+                name,
+                email,
+                subject,
+                message
+            });
+
+            // Show success message
+            document.getElementById('successMessage').style.display = 'block';
+
+            // Reset form
+            document.getElementById('contactForm').reset();
+
+            // Hide success message after 5 seconds
+            setTimeout(() => {
+                document.getElementById('successMessage').style.display = 'none';
+            }, 5000);
+
+            return false;
+        }
+
+        // Check authentication state
+        function checkAuthState() {
+            const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+            const authButton = document.getElementById('authButton');
+
+            if (isLoggedIn) {
+                const userName = localStorage.getItem('userName') || 'User';
+                const userPhoto = localStorage.getItem('userPhoto') || 'default-avatar.png';
+
+                authButton.innerHTML = `
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <span style="color: white;">${userName}</span>
+                        <img src="${userPhoto}" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+                    </div>
+                `;
+            }
+        }
+
+        // Initialize page
+        window.onload = function() {
+            checkAuthState();
+        }
+    </script>
+</body>
+
+</html>

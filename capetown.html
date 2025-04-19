@@ -6,8 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cape Town - Mother City of South Africa | Wanderly</title>
     <style>
-        /* ... Same base styles as previous pages ... */
-        
         * {
             margin: 0;
             padding: 0;
@@ -16,13 +14,42 @@
         }
         
         body {
-            background-color: #f8f9fa;
+            background-image: url('capetown.gif');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            /* This keeps the background fixed while scrolling */
+            background-repeat: no-repeat;
+            min-height: 100vh;
+            position: relative;
+        }
+        /* Add an overlay to ensure content remains readable */
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            /* Semi-transparent overlay */
+            z-index: 0;
+        }
+        /* Ensure all content appears above the overlay */
+        
+        .navbar,
+        .hero,
+        .content {
+            position: relative;
+            z-index: 1;
         }
         
         .navbar {
             display: flex;
             align-items: center;
-            background-color: #5e9ced;
+            background-color: rgba(94, 156, 237, 0.9);
+            /* Made slightly transparent */
             padding: 1rem 2rem;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             position: fixed;
@@ -34,9 +61,6 @@
         
         .hero {
             height: 60vh;
-            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('capetown-hero.jpg');
-            background-size: cover;
-            background-position: center;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -60,9 +84,13 @@
         }
         
         .content {
+            background: rgba(255, 255, 255, 0.9);
+            /* Made content background slightly transparent */
             max-width: 1200px;
             margin: 40px auto;
-            padding: 0 20px;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
         
         .section {
@@ -84,10 +112,10 @@
         }
         
         .highlight-card {
-            background: white;
+            background: rgba(255, 255, 255, 0.95);
             border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
             transition: transform 0.3s ease;
         }
         
@@ -120,8 +148,10 @@
         .cta {
             text-align: center;
             padding: 60px 0;
-            background: linear-gradient(135deg, #5e9ced, #4a7fc7);
+            background: rgba(94, 156, 237, 0.9);
             color: white;
+            border-radius: 15px;
+            margin: 40px 0;
         }
         
         .cta h2 {
@@ -143,6 +173,19 @@
         
         .cta-button:hover {
             transform: scale(1.05);
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero p {
+            font-size: 1.5rem;
+            max-width: 800px;
+            margin: 0 auto;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
         }
     </style>
 </head>
@@ -258,11 +301,10 @@
             const userPhoto = document.getElementById('userPhoto');
 
             if (isLoggedIn) {
-                const currentUser = JSON.parse(localStorage.getItem('currentUser')) || {};
                 authButton.style.display = 'none';
                 userProfile.style.display = 'block';
-                userName.textContent = currentUser.name || 'User';
-                userPhoto.src = currentUser.photo || 'default-avatar.png';
+                userName.textContent = localStorage.getItem('userName') || 'User';
+                userPhoto.src = localStorage.getItem('userPhoto') || 'default-avatar.png';
             } else {
                 authButton.style.display = 'block';
                 userProfile.style.display = 'none';
