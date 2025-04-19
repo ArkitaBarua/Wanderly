@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Trip - Wanderly</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #5e9ced, #4a7fc7);
+            min-height: 100vh;
+            margin: 0;
+            padding-top: 70px;
+        }
+        
+        .navbar {
+            display: flex;
+            align-items: center;
+            background-color: #5e9ced;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            justify-content: space-between;
+        }
+        
+        .create-trip-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 30px;
+        }
+        
+        .create-trip-form {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .form-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .form-header h1 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .form-header p {
+            color: #666;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: bold;
+        }
+        
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e1e1e1;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            border-color: #5e9ced;
+            outline: none;
+            box-shadow: 0 0 10px rgba(94, 156, 237, 0.1);
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .members-section {
+            margin-top: 20px;
+        }
+        
+        .members-list {
+            max-height: 200px;
+            overflow-y: auto;
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #e1e1e1;
+            border-radius: 10px;
+        }
+        
+        .member-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .member-item:last-child {
+            border-bottom: none;
+        }
+        
+        .member-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        
+        .member-info {
+            flex: 1;
+        }
+        
+        .member-name {
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .member-email {
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .remove-member {
+            color: #ff4444;
+            cursor: pointer;
+            padding: 5px;
+        }
+        
+        .search-friends {
+            position: relative;
+        }
+        
+        .search-results {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 1px solid #e1e1e1;
+            border-radius: 10px;
+            max-height: 200px;
+            overflow-y: auto;
+            display: none;
+            z-index: 100;
+        }
+        
+        .search-result-item {
+            padding: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+        
+        .search-result-item:hover {
+            background: #f8f9fa;
+        }
+        
+        .search-result-item img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        
+        .submit-button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(90deg, #5e9ced, #4a7fc7);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            margin-top: 20px;
+        }
+        
+        .submit-button:hover {
+            transform: translateY(-2px);
+        }
+        
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .create-trip-container {
+                padding: 20px;
+            }
+            
+            .create-trip-form {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div style="display: flex; align-items: center; flex-shrink: 0;">
+            <div><img src="logo.png" style="height: 40px; width: 40px; border-radius: 50%; margin-right: 10px;"></div>
+            <span><img style="width:100px; height:auto;" src="wanderly.png"></span>
+        </div>
+
+        <div style="display: flex; gap: 2rem; flex-grow: 1; justify-content: center;">
+            <a href="main2.html" style="color: white; text-decoration: none; font-weight: 500; transition: all 0.3s ease;">HOME</a>
+            <a href="Chennai.html" style="color: white; text-decoration: none; font-weight: 500; transition: all 0.3s ease;">TRAVEL</a>
+            <a href="flights.html" style="color: white; text-decoration: none; font-weight: 500; transition: all 0.3s ease;">FLIGHTS</a>
+            <a href="#" style="color: white; text-decoration: none; font-weight: 500; transition: all 0.3s ease;">CONTACT</a>
+        </div>
+
+        <div style="flex-shrink: 0;">
+            <div id="userProfile">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <img id="userPhoto" src="default-avatar.png" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+                    <span id="userName" style="color: white; font-weight: 500;"></span>
+                    <button onclick="handleLogout()" style="background-color: white; color: #1a73e8; border: none; padding: 8px 12px; border-radius: 4px; font-size: 12px; cursor: pointer; margin-left: 10px;">
+                        Logout
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="create-trip-container">
+        <div class="create-trip-form">
+            <div class="form-header">
+                <h1>Create New Trip</h1>
+                <p>Plan your next adventure with friends</p>
+            </div>
+
+            <form id="tripForm" onsubmit="return handleSubmit(event)">
+                <div class="form-group">
+                    <label for="tripName">Trip Name</label>
+                    <input type="text" id="tripName" placeholder="e.g., Summer Vacation 2024" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="destination">Destination</label>
+                        <input type="text" id="destination" placeholder="e.g., Paris, France" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="tripImage">Trip Image URL</label>
+                        <input type="url" id="tripImage" placeholder="https://example.com/image.jpg">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="startDate">Start Date</label>
+                        <input type="date" id="startDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="endDate">End Date</label>
+                        <input type="date" id="endDate" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea id="description" rows="4" placeholder="Tell us about your trip..."></textarea>
+                </div>
+
+                <div class="members-section">
+                    <label>Add Members</label>
+                    <div class="search-friends">
+                        <input type="text" id="searchFriends" placeholder="Search friends to add..." oninput="searchFriends(this.value)">
+                        <div class="search-results" id="searchResults"></div>
+                    </div>
+                    <div class="members-list" id="membersList">
+                        <!-- Members will be added here -->
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-button">Create Trip</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        let selectedMembers = new Set();
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+        window.onload = function() {
+            if (!currentUser) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            document.getElementById('userName').textContent = currentUser.name;
+            document.getElementById('userPhoto').src = currentUser.photo;
+
+            // Add current user as first member
+            addMember(currentUser);
+        }
+
+        async function searchFriends(query) {
+            if (query.length < 2) {
+                document.getElementById('searchResults').style.display = 'none';
+                return;
+            }
+
+            try {
+                const response = await fetch(`http://localhost:3000/api/users/search?q=${query}`, {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    }
+                });
+                const users = await response.json();
+                
+                const searchResults = document.getElementById('searchResults');
+                searchResults.innerHTML = users
+                    .filter(user => user.id !== currentUser.id && !selectedMembers.has(user.id))
+                    .map(user => `
+                        <div class="search-result-item" onclick="addMember(${JSON.stringify(user)})">
+                            <img src="${user.photo || 'default-avatar.png'}" alt="${user.name}">
+                            <div>
+                                <div class="member-name">${user.name}</div>
+                                <div class="member-email">${user.email}</div>
+                            </div>
+                        </div>
+                    `).join('');
+                
+                searchResults.style.display = 'block';
+            } catch (error) {
+                console.error('Error searching friends:', error);
+            }
+        }
+
+        function addMember(user) {
+            if (selectedMembers.has(user.id)) return;
+            
+            selectedMembers.add(user.id);
+            
+            const membersList = document.getElementById('membersList');
+            const memberElement = document.createElement('div');
+            memberElement.className = 'member-item';
+            memberElement.innerHTML = `
+                <img src="${user.photo || 'default-avatar.png'}" alt="${user.name}" class="member-avatar">
+                <div class="member-info">
+                    <div class="member-name">${user.name}</div>
+                    <div class="member-email">${user.email}</div>
+                </div>
+                <div class="remove-member" onclick="removeMember('${user.id}')">
+                    <i class="fas fa-times"></i>
+                </div>
+            `;
+            
+            membersList.appendChild(memberElement);
+            document.getElementById('searchResults').style.display = 'none';
+        }
+
+        function removeMember(userId) {
+            selectedMembers.delete(userId);
+            const memberElement = document.querySelector(`.member-item[onclick*="${userId}"]`);
+            if (memberElement) {
+                memberElement.remove();
+            }
+        }
+
+        async function handleSubmit(event) {
+            event.preventDefault();
+
+            const tripData = {
+                name: document.getElementById('tripName').value,
+                destination: document.getElementById('destination').value,
+                image: document.getElementById('tripImage').value,
+                startDate: document.getElementById('startDate').value,
+                endDate: document.getElementById('endDate').value,
+                description: document.getElementById('description').value,
+                members: Array.from(selectedMembers)
+            };
+
+            try {
+                const response = await fetch('http://localhost:3000/api/trips', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    },
+                    body: JSON.stringify(tripData)
+                });
+
+                if (response.ok) {
+                    alert('Trip created successfully!');
+                    window.location.href = 'profile.html';
+                } else {
+                    const error = await response.json();
+                    alert(error.message || 'Failed to create trip');
+                }
+            } catch (error) {
+                console.error('Error creating trip:', error);
+                alert('Error creating trip. Please try again.');
+            }
+
+            return false;
+        }
+
+        function handleLogout() {
+            localStorage.removeItem('isLoggedIn');
+            localStorage.removeItem('currentUser');
+            localStorage.removeItem('token');
+            window.location.href = 'login.html';
+        }
+    </script>
+</body>
+</html> 

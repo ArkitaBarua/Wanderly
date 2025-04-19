@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - Wanderly</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #5e9ced, #4a7fc7);
+            min-height: 100vh;
+            margin: 0;
+            padding-top: 70px;
+        }
+        
+        .navbar {
+            display: flex;
+            align-items: center;
+            background-color: #5e9ced;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            justify-content: space-between;
+        }
+        
+        .profile-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 30px;
+        }
+        
+        .profile-sidebar {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .profile-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .profile-pic {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            overflow: hidden;
+            border: 5px solid #5e9ced;
+        }
+        
+        .profile-pic img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .profile-info h2 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .profile-info p {
+            color: #666;
+            margin-bottom: 5px;
+        }
+        
+        .profile-stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+            padding: 20px 0;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-item h3 {
+            color: #5e9ced;
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+        
+        .stat-item p {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .profile-actions {
+            margin-top: 20px;
+        }
+        
+        .profile-actions button {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 10px;
+            border: none;
+            border-radius: 10px;
+            background: #5e9ced;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .profile-actions button:hover {
+            background: #4a7fc7;
+            transform: translateY(-2px);
+        }
+        
+        .main-content {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .tabs {
+            display: flex;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .tab {
+            padding: 15px 30px;
+            cursor: pointer;
+            color: #666;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .tab.active {
+            color: #5e9ced;
+            border-bottom: 3px solid #5e9ced;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .trips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .trip-card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .trip-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .trip-image {
+            height: 150px;
+            overflow: hidden;
+        }
+        
+        .trip-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .trip-info {
+            padding: 15px;
+        }
+        
+        .trip-info h3 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .trip-info p {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+        
+        .trip-members {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+        
+        .member-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-right: -10px;
+            border: 2px solid white;
+        }
+        
+        .create-trip-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: #5e9ced;
+            color: white;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .create-trip-btn:hover {
+            transform: scale(1.1);
+            background: #4a7fc7;
+        }
+        
+        @media (max-width: 768px) {
+            .profile-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .profile-sidebar {
+                margin-bottom: 20px;
+            }
+        }
+
+        .create-trip-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background-color: white;
+            width: 90%;
+            max-width: 500px;
+            margin: 2rem auto;
+            padding: 2rem;
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .add-member-btn {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+
+        .members-list {
+            margin-top: 1rem;
+        }
+
+        .member-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            padding: 0.5rem;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+        }
+
+        .remove-member {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            padding: 0.25rem 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div style="display: flex; align-items: center; flex-shrink: 0;">
+            <div><img src="logo.png" style="height: 40px; width: 40px; border-radius: 50%; margin-right: 10px;"></div>
+            <span><img style="width:100px; height:auto;" src="wanderly.png"></span>
+        </div>
+
+        <div style="display: flex; gap: 2rem; flex-grow: 1; justify-content: center;">
+            <a href="main2.html" style="color: white; text-decoration: none; font-weight: 500; transition: all 0.3s ease;">HOME</a>
+            <a href="Chennai.html" style="color: white; text-decoration: none; font-weight: 500; transition: all 0.3s ease;">TRAVEL</a>
+            <a href="flights.html" style="color: white; text-decoration: none; font-weight: 500; transition: all 0.3s ease;">FLIGHTS</a>
+            <a href="#" style="color: white; text-decoration: none; font-weight: 500; transition: all 0.3s ease;">CONTACT</a>
+        </div>
+
+        <div style="flex-shrink: 0;">
+            <div id="authButton" style="display: none;">
+                <a href="signup.html"><button style="background-color: white; color: #1a73e8; border: none; padding: 10px 15px; border-radius: 4px; font-size: 14px; cursor: pointer; transition: background-color 0.3s ease; font-weight: bold;">
+                    Login / Signup
+                </button></a>
+            </div>
+            <div id="userProfile">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <img id="userPhoto" src="default-avatar.png" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+                    <span id="userName" style="color: white; font-weight: 500;"></span>
+                    <button onclick="handleLogout()" style="background-color: white; color: #1a73e8; border: none; padding: 8px 12px; border-radius: 4px; font-size: 12px; cursor: pointer; margin-left: 10px;">
+                        Logout
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="profile-container">
+        <div class="profile-sidebar">
+            <div class="profile-header">
+                <div class="profile-pic">
+                    <img id="profilePicture" src="default-avatar.png" alt="Profile Picture">
+                </div>
+                <div class="profile-info">
+                    <h2 id="profileName">Loading...</h2>
+                    <p id="profileEmail">Loading...</p>
+                </div>
+            </div>
+            <div class="profile-stats">
+                <div class="stat-item">
+                    <h3 id="tripsCount">0</h3>
+                    <p>Trips</p>
+                </div>
+            </div>
+            <div class="profile-actions">
+                <button onclick="showCreateTripModal()">Create New Trip</button>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="tabs">
+                <div class="tab active" onclick="switchTab('my-trips')">My Trips</div>
+            </div>
+
+            <div id="my-trips" class="tab-content active">
+                <div class="trips-grid" id="myTripsGrid">
+                    <!-- Trips will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create Trip Modal -->
+    <div id="createTripModal" class="create-trip-modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="hideCreateTripModal()">×</span>
+            <h2>Create New Trip</h2>
+            <form id="createTripForm" onsubmit="return handleCreateTrip(event)">
+                <div class="form-group">
+                    <label for="tripName">Trip Name</label>
+                    <input type="text" id="tripName" required>
+                </div>
+                <div class="form-group">
+                    <label>Add Members (Optional)</label>
+                    <div style="display: flex; gap: 1rem;">
+                        <input type="text" id="memberName" placeholder="Name">
+                        <input type="email" id="memberEmail" placeholder="Email">
+                        <button type="button" class="add-member-btn" onclick="addMember()">Add</button>
+                    </div>
+                </div>
+                <div id="membersList" class="members-list">
+                    <!-- Members will be added here -->
+                </div>
+                <button type="submit" style="background-color: #5e9ced; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer; margin-top: 1rem;">Create Trip</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Load user profile data
+        window.onload = async function() {
+            const userData = JSON.parse(localStorage.getItem('currentUser'));
+            const token = localStorage.getItem('token');
+            if (!userData || !token) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            // Update profile section
+            document.getElementById('profileName').textContent = userData.name || 'User';
+            document.getElementById('profileEmail').textContent = userData.email || '';
+            document.getElementById('profilePicture').src = userData.photo || 'default-avatar.png';
+
+            // Update navigation bar
+            document.getElementById('userName').textContent = userData.name || 'User';
+            document.getElementById('userPhoto').src = userData.photo || 'default-avatar.png';
+
+            // Show user profile in navbar
+            document.getElementById('userProfile').style.display = 'block';
+
+            // Load trips immediately
+            await loadUserTrips();
+        }
+
+        function showCreateTripModal() {
+            document.getElementById('createTripModal').style.display = 'block';
+            document.getElementById('tripName').value = '';
+            document.getElementById('memberName').value = '';
+            document.getElementById('memberEmail').value = '';
+            document.getElementById('membersList').innerHTML = '';
+        }
+
+        function hideCreateTripModal() {
+            document.getElementById('createTripModal').style.display = 'none';
+        }
+
+        function addMember() {
+            const name = document.getElementById('memberName').value.trim();
+            const email = document.getElementById('memberEmail').value.trim();
+            
+            if (!name || !email) {
+                alert('Please enter both name and email to add a member.');
+                return;
+            }
+
+            // Basic email format validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert('Please enter a valid email address.');
+                return;
+            }
+
+            const membersList = document.getElementById('membersList');
+            const memberDiv = document.createElement('div');
+            memberDiv.className = 'member-item';
+            memberDiv.innerHTML = `
+                <span>${name} (${email})</span>
+                <button type="button" class="remove-member" onclick="this.parentElement.remove()">×</button>
+            `;
+            membersList.appendChild(memberDiv);
+
+            // Clear inputs
+            document.getElementById('memberName').value = '';
+            document.getElementById('memberEmail').value = '';
+        }
+
+        async function handleCreateTrip(event) {
+            event.preventDefault();
+            
+            const tripName = document.getElementById('tripName').value.trim();
+            const members = Array.from(document.getElementById('membersList').children).map(member => ({
+                name: member.querySelector('span').textContent.split(' (')[0],
+                email: member.querySelector('span').textContent.split(' (')[1].slice(0, -1)
+            }));
+
+            if (!tripName) {
+                alert('Please enter a trip name.');
+                return false;
+            }
+
+            const token = localStorage.getItem('token');
+            if (!token) {
+                alert('You are not logged in. Please log in again.');
+                window.location.href = 'login.html';
+                return false;
+            }
+
+            try {
+                const response = await fetch('http://localhost:3000/api/trips', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ name: tripName, members })
+                });
+
+                if (response.ok) {
+                    hideCreateTripModal();
+                    loadUserTrips();
+                } else {
+                    const errorData = await response.json();
+                    alert(`Failed to create trip: ${errorData.message || 'Unknown error'}`);
+                }
+            } catch (error) {
+                console.error('Error creating trip:', error);
+                alert('Failed to create trip due to a network or server error. Please try again.');
+            }
+
+            return false;
+        }
+
+        async function loadUserTrips() {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                alert('You are not logged in. Please log in again.');
+                window.location.href = 'login.html';
+                return;
+            }
+
+            try {
+                console.log('Fetching trips...'); // Debug log
+                const response = await fetch('http://localhost:3000/api/trips/user', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+                
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.message || 'Failed to load trips');
+                }
+                const trips = await response.json();
+                console.log('Received trips:', trips); // Debug log
+                
+                const tripsGrid = document.getElementById('myTripsGrid');
+                if (trips.length === 0) {
+                    tripsGrid.innerHTML = '<p style="text-align: center; color: #666;">No trips found. Create your first trip!</p>';
+                } else {
+                    tripsGrid.innerHTML = trips.map(trip => `
+                        <div class="trip-card">
+                            <div class="trip-info">
+                                <h3>${trip.name}</h3>
+                                <div class="trip-members">
+                                    ${trip.members.map(member => `
+                                        <div class="member-item">
+                                            <span>${member.name}</span>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        </div>
+                    `).join('');
+                }
+
+                document.getElementById('tripsCount').textContent = trips.length;
+            } catch (error) {
+                console.error('Error loading trips:', error);
+                alert(`Failed to load trips: ${error.message || 'Please try again.'}`);
+            }
+        }
+
+        function handleLogout() {
+            localStorage.removeItem('isLoggedIn');
+            localStorage.removeItem('currentUser');
+            localStorage.removeItem('token');
+            window.location.href = 'login.html';
+        }
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+
+            document.querySelector(`.tab[onclick="switchTab('${tabId}')"]`).classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+        }
+    </script>
+</body>
+</html>

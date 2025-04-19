@@ -1,0 +1,188 @@
+/* General Styles */
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #0A1F3C;
+    color: #FFFFFF;
+}
+
+h1,
+h2,
+h3 {
+    font-family: 'Montserrat', sans-serif;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+
+/* Hero Section */
+
+.hero {
+    height: 100vh;
+    background: linear-gradient(rgba(10, 31, 60, 0.8), rgba(10, 31, 60, 0.8)), url('weather-map.jpg');
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.hero-content h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+}
+
+.cta-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.btn-primary,
+.btn-secondary {
+    padding: 1rem 2rem;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background-color: #FF3B30;
+}
+
+.btn-secondary {
+    border: 2px solid #00FF88;
+    color: #00FF88;
+}
+
+.btn-primary:hover,
+.btn-secondary:hover {
+    transform: scale(1.1);
+}
+
+
+/* Features Section */
+
+.features {
+    padding: 4rem 2rem;
+    text-align: center;
+}
+
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.feature-card {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 2rem;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+
+/* Interactive Map Section */
+
+.interactive-map {
+    padding: 4rem 2rem;
+    text-align: center;
+}
+
+#map {
+    height: 400px;
+    background: #1E2A3A;
+    margin-top: 2rem;
+}
+
+
+/* How It Works Section */
+
+.how-it-works {
+    padding: 4rem 2rem;
+    text-align: center;
+}
+
+.steps {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 2rem;
+}
+
+.step {
+    width: 30%;
+}
+
+
+/* Testimonials Section */
+
+.testimonials {
+    padding: 4rem 2rem;
+    text-align: center;
+}
+
+.testimonial-carousel {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.testimonial-card {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 2rem;
+    border-radius: 10px;
+    width: 300px;
+}
+
+
+/* Call to Action Section */
+
+.cta {
+    padding: 4rem 2rem;
+    text-align: center;
+}
+
+.cta-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.cta-buttons input {
+    padding: 1rem;
+    border: none;
+    border-radius: 5px;
+    width: 300px;
+}
+
+
+/* Footer */
+
+footer {
+    text-align: center;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.1);
+}

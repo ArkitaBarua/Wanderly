@@ -441,8 +441,8 @@
                     Login / Signup
                 </button></a>
             </div>
-            <div id="userProfile" style="display: none;">
-                <div style="display: flex; align-items: center; gap: 10px;">
+            <div id="userProfile">
+                <div style="display: flex; align-items: center; gap: 10px; cursor: pointer;" onclick="window.location.href='profile.html'">
                     <img id="userPhoto" src="default-avatar.png" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
                     <span id="userName" style="color: white; font-weight: 500;"></span>
                     <button onclick="handleLogout()" style="background-color: white; color: #1a73e8; border: none; padding: 8px 12px; border-radius: 4px; font-size: 12px; cursor: pointer; margin-left: 10px;">
@@ -506,8 +506,6 @@
             </a>
         </div>
     </section>
-
-
 
     <!-- Map Section -->
     <section class="map-container">
@@ -576,19 +574,6 @@
     </script>
 
     <script>
-        // Add Firebase SDK
-        const firebaseScripts = document.createElement('script');
-        firebaseScripts.src = 'https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js';
-        document.head.appendChild(firebaseScripts);
-
-        const authScript = document.createElement('script');
-        authScript.src = 'https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js';
-        document.head.appendChild(authScript);
-
-        const configScript = document.createElement('script');
-        configScript.src = 'firebase-config.js';
-        document.head.appendChild(configScript);
-
         // Check authentication state
         function checkAuthState() {
             const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
@@ -598,10 +583,11 @@
             const userPhoto = document.getElementById('userPhoto');
 
             if (isLoggedIn) {
+                const currentUser = JSON.parse(localStorage.getItem('currentUser')) || {};
                 authButton.style.display = 'none';
                 userProfile.style.display = 'block';
-                userName.textContent = localStorage.getItem('userName') || 'User';
-                userPhoto.src = localStorage.getItem('userPhoto') || 'default-avatar.png';
+                userName.textContent = currentUser.name || 'User';
+                userPhoto.src = currentUser.photo || 'default-avatar.png';
             } else {
                 authButton.style.display = 'block';
                 userProfile.style.display = 'none';
@@ -609,28 +595,17 @@
         }
 
         function handleLogout() {
-            auth.signOut()
-                .then(() => {
-                    // Clear localStorage
-                    localStorage.removeItem('isLoggedIn');
-                    localStorage.removeItem('userEmail');
-                    localStorage.removeItem('userName');
-                    localStorage.removeItem('userPhoto');
-                    localStorage.removeItem('userId');
+            // Clear localStorage
+            localStorage.removeItem('isLoggedIn');
+            localStorage.removeItem('currentUser');
 
-                    // Refresh the page
-                    window.location.reload();
-                })
-                .catch((error) => {
-                    console.error('Logout error:', error);
-                    alert(error.message);
-                });
+            // Refresh the page or redirect to login
+            window.location.href = 'login.html';
         }
 
         // Check auth state on page load
         window.onload = function() {
             checkAuthState();
-            // ... existing onload code ...
         }
     </script>
 

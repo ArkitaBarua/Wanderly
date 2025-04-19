@@ -284,25 +284,31 @@
         </nav>
     </header>
     <nav class="navbar">
-        <!-- Logo on the Left -->
         <div style="display: flex; align-items: center; flex-shrink: 0;">
             <div><img src="logo.png" style="height: 40px; width: 40px; border-radius: 50%; margin-right: 10px;"></div>
             <span><img style="width:100px; height:auto;" src="wanderly.png"></span>
         </div>
-
-        <!-- Navigation Links Centered -->
         <div style="display: flex; gap: 2rem; flex-grow: 1; justify-content: center;">
             <a href="main2.html" style="color: white; text-decoration: none; font-weight: 500; transition: all 0.3s ease;">HOME</a>
             <a href="Chennai.html" style="color: white; text-decoration: none; font-weight: 500; transition: all 0.3s ease;">TRAVEL</a>
             <a href="flights.html" style="color: white; text-decoration: none; font-weight: 500; transition: all 0.3s ease;">FLIGHTS</a>
             <a href="#" style="color: white; text-decoration: none; font-weight: 500; transition: all 0.3s ease;">CONTACT</a>
         </div>
-
-        <!-- Login/Signup Button -->
         <div style="flex-shrink: 0;">
-            <a href="signup.html"><button style="background-color: white; color: #1a73e8; border: none; padding: 10px 15px; border-radius: 4px; font-size: 14px; cursor: pointer; transition: background-color 0.3s ease; font-weight: bold;margin-right:60px;">
-                Login / Signup
-            </button></a>
+            <div id="authButton">
+                <a href="signup.html"><button style="background-color: white; color: #1a73e8; border: none; padding: 10px 15px; border-radius: 4px; font-size: 14px; cursor: pointer; transition: background-color 0.3s ease; font-weight: bold;">
+                    Login / Signup
+                </button></a>
+            </div>
+            <div id="userProfile" style="display: none;">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <img id="userPhoto" src="default-avatar.png" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+                    <span id="userName" style="color: white; font-weight: 500;"></span>
+                    <button onclick="handleLogout()" style="background-color: white; color: #1a73e8; border: none; padding: 8px 12px; border-radius: 4px; font-size: 12px; cursor: pointer; margin-left: 10px;">
+                        Logout
+                    </button>
+                </div>
+            </div>
         </div>
     </nav>
     <div class="search-container">
@@ -340,7 +346,7 @@
                 <label>Class</label>
                 <select id="class" required>
                     <option value="economy">Economy</option>
-                    <option value="premium">Premium Economy</option>
+                    <option value="premium_economy">Premium Economy</option>
                     <option value="business">Business</option>
                     <option value="first">First Class</option>
                 </select>
@@ -404,15 +410,20 @@
             const passengers = document.getElementById('passengers').value;
             const travelClass = document.getElementById('class').value;
 
+            const validTravelClasses = ['ECONOMY', 'PREMIUM_ECONOMY', 'BUSINESS', 'FIRST'];
+            const formattedTravelClass = travelClass.toUpperCase().replace('_', '_');
+
+            if (!validTravelClasses.includes(formattedTravelClass)) {
+                throw new Error(`Invalid travel class: ${travelClass}`);
+            }
+
             const resultsContainer = document.getElementById('resultsContainer');
             resultsContainer.innerHTML = '<div class="loading">Searching for flights...</div>';
 
             try {
-                // Get new access token for each search
                 console.log('Getting access token...');
                 await getAccessToken();
 
-                // Get IATA codes for cities
                 console.log('Searching for origin city:', fromCity);
                 const fromResponse = await fetch(`https://test.api.amadeus.com/v1/reference-data/locations?keyword=${encodeURIComponent(fromCity)}&subType=CITY,AIRPORT&page[limit]=10`, {
                     headers: {
@@ -457,8 +468,7 @@
                 const toCode = toData.data[0].iataCode;
                 console.log('Selected destination airport:', toCode);
 
-                // Construct flight search URL
-                let apiUrl = `https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=${fromCode}&destinationLocationCode=${toCode}&departureDate=${departureDate}&adults=${passengers}&travelClass=${travelClass.toUpperCase()}&max=20&currencyCode=INR`;
+                let apiUrl = `https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=${fromCode}&destinationLocationCode=${toCode}&departureDate=${departureDate}&adults=${passengers}&travelClass=${formattedTravelClass}&max=20&currencyCode=INR`;
 
                 if (returnDate && returnDate.trim() !== '') {
                     apiUrl += `&returnDate=${returnDate}`;
@@ -480,6 +490,20 @@
                 const flightData = await flightResponse.json();
                 console.log('Flight search response:', flightData);
 
+                // Log airline, price, and travel class for each flight
+                flightData.data.forEach((flight, index) => {
+                    const itinerary = flight.itineraries[0];
+                    const firstSegment = itinerary.segments[0];
+                    const cabin = flight.travelerPricings[0].fareDetailsBySegment[0].cabin;
+                    console.log(`Flight ${index + 1}:`, {
+                        carrierCode: firstSegment.carrierCode,
+                        flightNumber: firstSegment.number,
+                        price: flight.price.total,
+                        currency: flight.price.currency,
+                        travelClass: cabin
+                    });
+                });
+
                 if (flightData.data && flightData.data.length > 0) {
                     displayResults(flightData.data);
                 } else {
@@ -487,7 +511,7 @@
                         <div class="no-results">
                             <p>No flights found for this route and date.</p>
                             <p style="font-size: 14px; color: #666; margin-top: 10px;">
-                                Try different dates or nearby airports.
+                                Try different dates, nearby airports, or a different travel class.
                             </p>
                         </div>`;
                 }
@@ -503,6 +527,7 @@
                                 <li>Using city names (e.g., "Mumbai" instead of "BOM")</li>
                                 <li>Checking your dates are in the future</li>
                                 <li>Searching for major airports</li>
+                                <li>Selecting a different travel class</li>
                             </ul>
                         </p>
                     </div>
@@ -512,86 +537,85 @@
 
         function displayResults(flights) {
             const resultsContainer = document.getElementById('resultsContainer');
+            resultsContainer.innerHTML = '';
 
-            resultsContainer.innerHTML = flights.map(flight => {
-                        const itinerary = flight.itineraries[0];
-                        const firstSegment = itinerary.segments[0];
-                        const lastSegment = itinerary.segments[itinerary.segments.length - 1];
+            flights.forEach(flight => {
+                const itinerary = flight.itineraries[0];
+                const firstSegment = itinerary.segments[0];
+                const lastSegment = itinerary.segments[itinerary.segments.length - 1];
 
-                        const departureTime = new Date(firstSegment.departure.at);
-                        const arrivalTime = new Date(lastSegment.arrival.at);
-                        const stops = itinerary.segments.length - 1;
+                const departureTime = new Date(firstSegment.departure.at);
+                const arrivalTime = new Date(lastSegment.arrival.at);
+                const stops = itinerary.segments.length - 1;
+                const totalDuration = itinerary.duration;
 
-                        // Calculate total duration
-                        const totalDuration = itinerary.duration;
+                const priceInINR = Math.round(parseFloat(flight.price.total));
 
-                        // Format price
-                        const priceInINR = Math.round(flight.price.total * 82); // Using current approximate exchange rate
-
-                        return `
-                    <div class="flight-card">
-                        <div class="flight-info">
-                            <img src="https://pics.avs.io/200/200/${firstSegment.carrierCode}.png" alt="${firstSegment.carrierCode}" class="airline-logo">
-                            <div class="flight-details">
-                                <div style="font-size: 14px; color: #666; margin-bottom: 5px;">
-                                    ${firstSegment.carrierCode} ${firstSegment.number} • ${departureTime.toLocaleDateString('en-US', { weekday: 'short', day: 'numeric', month: 'short' })}
+                const flightCard = document.createElement('div');
+                flightCard.className = 'flight-card';
+                flightCard.innerHTML = `
+                    <div class="flight-info">
+                        <img src="https://pics.avs.io/200/200/${firstSegment.carrierCode}.png" alt="${firstSegment.carrierCode}" class="airline-logo">
+                        <div class="flight-details">
+                            <div style="font-size: 14px; color: #666; margin-bottom: 5px;">
+                                ${firstSegment.carrierCode} ${firstSegment.number} • ${departureTime.toLocaleDateString('en-US', { weekday: 'short', day: 'numeric', month: 'short' })}
+                            </div>
+                            <div class="flight-time">
+                                <div style="text-align: center;">
+                                    <span>${departureTime.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false })}</span>
+                                    <div style="font-size: 12px; color: #666;">${firstSegment.departure.iataCode}</div>
                                 </div>
-                                <div class="flight-time">
-                                    <div style="text-align: center;">
-                                        <span>${departureTime.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false })}</span>
-                                        <div style="font-size: 12px; color: #666;">${firstSegment.departure.iataCode}</div>
-                                    </div>
-                                    <i class="fas fa-plane"></i>
-                                    <div style="text-align: center;">
-                                        <span>${arrivalTime.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false })}</span>
-                                        <div style="font-size: 12px; color: #666;">${lastSegment.arrival.iataCode}</div>
-                                    </div>
-                                </div>
-                                <div class="flight-path">
-                                    <i class="fas fa-circle"></i>
-                                    ${stops === 0 ? 
-                                        '<i class="fas fa-plane"></i>' : 
-                                        `<i class="fas fa-plane"></i>
-                                        <div class="stop-point">
-                                            <i class="fas fa-circle"></i>
-                                            ${stops} stop${stops > 1 ? 's' : ''}
-                                            ${itinerary.segments.map(seg => seg.arrival.iataCode).slice(0, -1).join(', ')}
-                                        </div>
-                                        <i class="fas fa-plane"></i>`
-                                    }
-                                    <i class="fas fa-circle"></i>
-                                </div>
-                                <div class="flight-duration">Duration: ${totalDuration.replace('PT', '').toLowerCase()}</div>
-                                <div class="flight-features">
-                                    <div class="feature">
-                                        <i class="fas fa-chair"></i>
-                                        <span>${flight.travelerPricings[0].fareDetailsBySegment[0].cabin}</span>
-                                    </div>
-                                    ${flight.travelerPricings[0].fareDetailsBySegment[0].includedCheckedBags ? `
-                                        <div class="feature">
-                                            <i class="fas fa-suitcase"></i>
-                                            <span>${flight.travelerPricings[0].fareDetailsBySegment[0].includedCheckedBags.weight || ''} ${flight.travelerPricings[0].fareDetailsBySegment[0].includedCheckedBags.weightUnit || 'Bag'}</span>
-                                        </div>
-                                    ` : ''}
+                                <i class="fas fa-plane"></i>
+                                <div style="text-align: center;">
+                                    <span>${arrivalTime.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false })}</span>
+                                    <div style="font-size: 12px; color: #666;">${lastSegment.arrival.iataCode}</div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="flight-price">
-                            <div class="price">₹${priceInINR.toLocaleString('en-IN')}</div>
-                            <div class="price-info">per passenger</div>
-                            ${flight.numberOfBookableSeats ? `
-                                <div style="font-size: 12px; color: #666; margin-top: 5px;">
-                                    ${flight.numberOfBookableSeats} seats left
+                            <div class="flight-path">
+                                <i class="fas fa-circle"></i>
+                                ${stops === 0 ? 
+                                    '<i class="fas fa-plane"></i>' : 
+                                    `<i class="fas fa-plane"></i>
+                                    <div class="stop-point">
+                                        <i class="fas fa-circle"></i>
+                                        ${stops} stop${stops > 1 ? 's' : ''}
+                                        ${itinerary.segments.map(seg => seg.arrival.iataCode).slice(0, -1).join(', ')}
+                                    </div>
+                                    <i class="fas fa-plane"></i>`
+                                }
+                                <i class="fas fa-circle"></i>
+                            </div>
+                            <div class="flight-duration">Duration: ${totalDuration.replace('PT', '').toLowerCase()}</div>
+                            <div class="flight-features">
+                                <div class="feature">
+                                    <i class="fas fa-chair"></i>
+                                    <span>${flight.travelerPricings[0].fareDetailsBySegment[0].cabin}</span>
                                 </div>
-                            ` : ''}
+                                ${flight.travelerPricings[0].fareDetailsBySegment[0].includedCheckedBags?.quantity ? `
+                                    <div class="feature">
+                                        <i class="fas fa-suitcase"></i>
+                                        <span>${flight.travelerPricings[0].fareDetailsBySegment[0].includedCheckedBags.quantity} Bag${flight.travelerPricings[0].fareDetailsBySegment[0].includedCheckedBags.quantity > 1 ? 's' : ''}</span>
+                                    </div>
+                                ` : ''}
+                            </div>
                         </div>
-                        <button class="book-button" onclick="alert('Booking functionality will be implemented soon!')">Book Now</button>
                     </div>
+                    <div class="flight-price">
+                        <div class="price">₹${priceInINR.toLocaleString('en-IN')}</div>
+                        <div class="price-info">per passenger</div>
+                        ${flight.numberOfBookableSeats ? `
+                            <div style="font-size: 12px; color: #666; margin-top: 5px;">
+                                ${flight.numberOfBookableSeats} seats left
+                            </div>
+                        ` : ''}
+                    </div>
+                    <button class="book-button" onclick="alert('Booking functionality will be implemented soon!')">Book Now</button>
                 `;
-            }).join('');
+                resultsContainer.appendChild(flightCard);
+            });
         }
 
-        // Initialize date pickers with different configurations
+        // Initialize date pickers
         flatpickr("#departureDate", {
             minDate: "today",
             dateFormat: "Y-m-d",
@@ -641,7 +665,7 @@
         function handleLogout() {
             localStorage.removeItem('isLoggedIn');
             localStorage.removeItem('currentUser');
-            window.location.reload();
+            window.location.href = 'login.html';
         }
 
         // Check auth state on page load

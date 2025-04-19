@@ -258,10 +258,11 @@
             const userPhoto = document.getElementById('userPhoto');
 
             if (isLoggedIn) {
+                const currentUser = JSON.parse(localStorage.getItem('currentUser')) || {};
                 authButton.style.display = 'none';
                 userProfile.style.display = 'block';
-                userName.textContent = localStorage.getItem('userName') || 'User';
-                userPhoto.src = localStorage.getItem('userPhoto') || 'default-avatar.png';
+                userName.textContent = currentUser.name || 'User';
+                userPhoto.src = currentUser.photo || 'default-avatar.png';
             } else {
                 authButton.style.display = 'block';
                 userProfile.style.display = 'none';

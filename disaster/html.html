@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PredictX - AI-Powered Disaster Management</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Open+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        /* General Styles */
+        
+        body {
+            font-family: 'Open Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #0A1F3C;
+            color: #FFFFFF;
+        }
+        
+        h1,
+        h2,
+        h3 {
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        /* Hero Section */
+        
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(10, 31, 60, 0.8), rgba(10, 31, 60, 0.8)), url('weather-map.jpg');
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .hero-content h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+        
+        .btn-primary,
+        .btn-secondary {
+            padding: 1rem 2rem;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background-color: #FF3B30;
+        }
+        
+        .btn-secondary {
+            border: 2px solid #00FF88;
+            color: #00FF88;
+        }
+        
+        .btn-primary:hover,
+        .btn-secondary:hover {
+            transform: scale(1.1);
+        }
+        /* Features Section */
+        
+        .features {
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .feature-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        /* Interactive Map Section */
+        
+        .interactive-map {
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+        
+        #map {
+            height: 400px;
+            background: #1E2A3A;
+            margin-top: 2rem;
+        }
+        /* How It Works Section */
+        
+        .how-it-works {
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+        
+        .steps {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 2rem;
+        }
+        
+        .step {
+            width: 30%;
+        }
+        /* Testimonials Section */
+        
+        .testimonials {
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+        
+        .testimonial-carousel {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+        
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 10px;
+            width: 300px;
+        }
+        /* Call to Action Section */
+        
+        .cta {
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+        
+        .cta-buttons input {
+            padding: 1rem;
+            border: none;
+            border-radius: 5px;
+            width: 300px;
+        }
+        /* Footer */
+        
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>AI-Powered Disaster Prediction & Risk Management</h1>
+            <p>Stay ahead of disasters with real-time predictions and actionable insights.</p>
+            <div class="cta-buttons">
+                <a href="#" class="btn-primary">Get Started</a>
+                <a href="#" class="btn-secondary">See Live Predictions</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <h2>Features</h2>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="icon">🧠</div>
+                <h3>AI-Powered Predictions</h3>
+                <p>Advanced AI models predict disasters before they happen.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">🔔</div>
+                <h3>Real-Time Alerts</h3>
+                <p>Instant notifications to keep you informed.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">🌍</div>
+                <h3>Interactive Risk Map</h3>
+                <p>Visualize risks with our dynamic heatmap.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">📊</div>
+                <h3>Data-Driven Insights</h3>
+                <p>Actionable insights based on real-time data.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">👥</div>
+                <h3>Community-Driven Reporting</h3>
+                <p>Collaborate with others to stay safe.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Map Section -->
+    <section class="interactive-map">
+        <h2>Live Disaster Tracking</h2>
+        <div id="map"></div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="how-it-works">
+        <h2>How It Works</h2>
+        <div class="steps">
+            <div class="step">
+                <div class="icon">📍</div>
+                <h3>Enter Location</h3>
+                <p>Provide your location for accurate predictions.</p>
+            </div>
+            <div class="step">
+                <div class="icon">🤖</div>
+                <h3>AI Analyzes</h3>
+                <p>Our AI processes data to assess risks.</p>
+            </div>
+            <div class="step">
+                <div class="icon">🔔</div>
+                <h3>Receive Alerts</h3>
+                <p>Get real-time alerts and recommendations.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <h2>What Our Users Say</h2>
+        <div class="testimonial-carousel">
+            <div class="testimonial-card">
+                <p>"PredictX saved our community during the last hurricane. Highly recommended!"</p>
+                <h4>- John Doe</h4>
+            </div>
+            <div class="testimonial-card">
+                <p>"The real-time alerts are a game-changer. I feel safer already."</p>
+                <h4>- Jane Smith</h4>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section class="cta">
+        <h2>Stay Informed, Stay Safe</h2>
+        <div class="cta-buttons">
+            <input type="email" placeholder="Enter your email to stay informed">
+            <a href="#" class="btn-primary">Sign Up</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2023 PredictX. All rights reserved.</p>
+    </footer>
+
+    <!-- Chatbot -->
+    <iframe allow="microphone;" width="350" height="430" src="https://console.dialogflow.cloud.google.com/client/web/your-agent-id">
+  </iframe>
+
+    <!-- JavaScript -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <script>
+        // GSAP Animations
+        gsap.from(".hero h1", {
+            duration: 1,
+            y: -50,
+            opacity: 0,
+            ease: "power2.out"
+        });
+        gsap.from(".hero p", {
+            duration: 1,
+            y: 50,
+            opacity: 0,
+            delay: 0.5,
+            ease: "power2.out"
+        });
+        gsap.from(".cta-buttons", {
+            duration: 1,
+            y: 50,
+            opacity: 0,
+            delay: 1,
+            ease: "power2.out"
+        });
+
+        // Feature Card Hover Effects
+        document.querySelectorAll(".feature-card").forEach(card => {
+            card.addEventListener("mouseenter", () => {
+                gsap.to(card, {
+                    scale: 1.05,
+                    duration: 0.3,
+                    ease: "power2.out"
+                });
+            });
+            card.addEventListener("mouseleave", () => {
+                gsap.to(card, {
+                    scale: 1,
+                    duration: 0.3,
+                    ease: "power2.out"
+                });
+            });
+        });
+
+        // Real-Time Data Integration (Earthquake Data)
+        async function fetchEarthquakeData() {
+            const response = await fetch("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson");
+            const data = await response.json();
+            return data.features;
+        }
+
+        function displayEarthquakesOnMap(earthquakes) {
+            const map = L.map('map').setView([0, 0], 2);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+            }).addTo(map);
+
+            earthquakes.forEach(quake => {
+                const {
+                    coordinates
+                } = quake.geometry;
+                const magnitude = quake.properties.mag;
+                L.marker([coordinates[1], coordinates[0]]).addTo(map)
+                    .bindPopup(`Magnitude: ${magnitude}`)
+                    .openPopup();
+            });
+        }
+
+        // Fetch and Display Earthquake Data
+        fetchEarthquakeData().then(displayEarthquakesOnMap);
+
+        // Smooth Scrolling for Navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener("click", function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute("href")).scrollIntoView({
+                    behavior: "smooth"
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
