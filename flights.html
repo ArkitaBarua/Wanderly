@@ -292,7 +292,7 @@
             <a href="main2.html" style="color: white; text-decoration: none; font-weight: 500; transition: all 0.3s ease;">HOME</a>
             <a href="Chennai.html" style="color: white; text-decoration: none; font-weight: 500; transition: all 0.3s ease;">TRAVEL</a>
             <a href="flights.html" style="color: white; text-decoration: none; font-weight: 500; transition: all 0.3s ease;">FLIGHTS</a>
-            <a href="#" style="color: white; text-decoration: none; font-weight: 500; transition: all 0.3s ease;">CONTACT</a>
+            <a href="contact.html" style="color: white; text-decoration: none; font-weight: 500; transition: all 0.3s ease;">CONTACT</a>
         </div>
         <div style="flex-shrink: 0;">
             <div id="authButton">
@@ -540,20 +540,20 @@
             resultsContainer.innerHTML = '';
 
             flights.forEach(flight => {
-                const itinerary = flight.itineraries[0];
-                const firstSegment = itinerary.segments[0];
-                const lastSegment = itinerary.segments[itinerary.segments.length - 1];
+                        const itinerary = flight.itineraries[0];
+                        const firstSegment = itinerary.segments[0];
+                        const lastSegment = itinerary.segments[itinerary.segments.length - 1];
 
-                const departureTime = new Date(firstSegment.departure.at);
-                const arrivalTime = new Date(lastSegment.arrival.at);
-                const stops = itinerary.segments.length - 1;
-                const totalDuration = itinerary.duration;
+                        const departureTime = new Date(firstSegment.departure.at);
+                        const arrivalTime = new Date(lastSegment.arrival.at);
+                        const stops = itinerary.segments.length - 1;
+                        const totalDuration = itinerary.duration;
 
-                const priceInINR = Math.round(parseFloat(flight.price.total));
+                        const priceInINR = Math.round(parseFloat(flight.price.total));
 
-                const flightCard = document.createElement('div');
-                flightCard.className = 'flight-card';
-                flightCard.innerHTML = `
+                        const flightCard = document.createElement('div');
+                        flightCard.className = 'flight-card';
+                        flightCard.innerHTML = `
                     <div class="flight-info">
                         <img src="https://pics.avs.io/200/200/${firstSegment.carrierCode}.png" alt="${firstSegment.carrierCode}" class="airline-logo">
                         <div class="flight-details">
