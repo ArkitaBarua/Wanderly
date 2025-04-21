@@ -24,7 +24,7 @@ Wanderly is a modern web application that helps users plan their trips using AI-
 ## Prerequisites
 
 - Node.js (v14 or higher)
-- MongoDB
+- MongoDB Connection key
 - Google API Key for Generative AI
 - Nodemailer configuration for email services
 
@@ -38,7 +38,7 @@ cd project
 
 2. Install dependencies:
 ```bash
-npm install
+npm install express mongoose bcryptjs cors jsonwebtoken @langchain/google-genai
 ```
 
 3. Create a `.env` file in the root directory with the following variables:
@@ -62,19 +62,21 @@ project/
 ├── server.js              # Main server file
 ├── package.json          # Project dependencies
 ├── .env                  # Environment variables
-├── public/              # Static files
-│   ├── styles.css       # Global styles
-│   └── images/          # Image assets
-├── html/                # HTML pages
-│   ├── main2.html       # Home page
-│   ├── travel.html      # Travel planning page
-│   ├── flights.html     # Flight search page
-│   ├── signup.html      # Authentication page
-│   └── contact.html     # Contact page
-└── models/              # Database models
-    ├── User.js         # User model
-    ├── TripSurvey.js   # Survey model
-    └── Itinerary.js    # Itinerary model
+├── styles.css            # Global styles
+├── main2.html           # Home page
+├── travel.html          # Travel planning page
+├── flights.html         # Flight search page
+├── signup.html          # Authentication page
+├── contact.html         # Contact page
+├── paris.html           # Paris destination page
+├── new york.html        # New York destination page
+├── tokyo.html           # Tokyo destination page
+├── profile.html         # User profile page
+├── bali.html            # Bali destination page
+├── login.html           # Login page
+├── User.js              # User model
+├── TripSurvey.js       # Survey model
+├── Itinerary.js        # Itinerary model
 ```
 
 ## API Endpoints
