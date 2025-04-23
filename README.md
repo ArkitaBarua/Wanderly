@@ -38,7 +38,7 @@ cd project
 
 2. Install dependencies:
 ```bash
-npm install express mongoose bcryptjs cors jsonwebtoken @langchain/google-genai
+npm install
 ```
 
 3. Create a `.env` file in the root directory with the following variables:
